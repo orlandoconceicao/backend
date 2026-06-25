@@ -370,5 +370,3 @@ Configuração concluída:
 - Extensões configuradas
 - Git configurado
 - Gerenciamento de dependências pronto
-
-Ambiente preparado para iniciar projetos com Python, Django e Django REST Framework.
