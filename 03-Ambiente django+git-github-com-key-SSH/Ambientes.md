@@ -152,4 +152,3 @@ pip freeze > requirements.txt
 ---
 
 Posso polir mais (ex.: adicionar links para guias, imagens, ou uma seção sobre Docker/CI). Diga o que prefere.
-
