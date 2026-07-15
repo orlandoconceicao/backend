@@ -4,16 +4,17 @@
 
     {% include 'partials/header.html' %}
 
-        <div class="search container">
-            <div class="container">
-                <form class="search-form">
-                    <input type="text" class="search-input" name="search" placeholder="Pesquisar receita...">
-                    <button type="submit" class="search-button">
-                    <i class="fas fa-search"></i>
-                    </button>  
-                </form>
-            </div>
+    {% include 'partials/search.html' %}
+
+    <main class="main-content-container">
+        <div class="main-content main-content-list container">
+            {% include 'partials/recipes.html' %}
+            {% include 'partials/recipes.html' %}
+            {% include 'partials/recipes.html' %}
+
         </div>
+    </main>
+
 
 </body>
 </html>
