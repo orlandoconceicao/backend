@@ -234,3 +234,13 @@ h6 {
 .recipe-footer a:hover {
     filter: brightness(2);
 }
+
+.main-content-detail .recipe-list-item {
+    max-width: 84rem;
+    margin: 0 auto;
+}
+
+.recipe-list-item:hover {
+    transform: scale(1.02);
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, .2);
+}
