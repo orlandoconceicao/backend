@@ -273,3 +273,7 @@ p {
     margin: 2rem 0;
     padding: 0 2rem;
 }
+
+.center {
+    text-align: center;
+}
