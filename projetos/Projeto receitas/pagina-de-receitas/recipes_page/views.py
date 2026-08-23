@@ -32,7 +32,7 @@ def category(request, category_id):
 
 
 def recipes(request, id):
-    recipe = Recipe.objects.filter(id=id, is_published=True).first()
+    recipe = get_object_or_404(Recipe, id=id, is_published=True)
     return render(
         request,
         "page/recipe-view.html",

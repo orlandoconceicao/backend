@@ -149,6 +149,11 @@ h6 {
     gap: var(--spacing-gutter-large);
 }
 
+.recipe-list-item {
+    width: 100%;
+    max-width: none;
+}
+
 .recipe {
     background: var(--color-white);
     box-shadow: -5px 5px 10px rgba(0, 0, 0, .2);
@@ -250,4 +255,21 @@ p {
 .main-content-detail .recipe-list-item {
     max-width: 74rem;
     margin: 0 auto;
+}
+
+.preparation-steps h1,
+.preparation-steps h2,
+.preparation-steps h3,
+.preparation-steps h4,
+.preparation-steps h5,
+.preparation-steps h6,
+.preparation-steps p,
+.preparation-steps pre {
+    margin: 2rem 0;
+}
+
+.preparation-steps ol,
+.preparation-steps ul {
+    margin: 2rem 0;
+    padding: 0 2rem;
 }
