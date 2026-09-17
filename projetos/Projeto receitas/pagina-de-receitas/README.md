@@ -28,7 +28,7 @@ O projeto apresenta somente as receitas marcadas como publicadas. A página inic
 ```text
 pagina-de-receitas/
 |-- config/             # Configurações e URLs do projeto Django
-|-- recipes_page/       # Models, views, rotas, templates e administração
+|-- recipes/       # Models, views, rotas, templates e administração
 |-- base_static/        # Arquivos CSS globais
 |-- utils/              # Utilitários para dados de receitas
 |-- manage.py

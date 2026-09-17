@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('is_published', models.BooleanField(default=False)),
                 ('cover', models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')),
                 ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='recipes_page.category')),
+                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='recipes.category')),
             ],
         ),
     ]

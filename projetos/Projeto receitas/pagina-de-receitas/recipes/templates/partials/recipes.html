@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    {% if is_detail_page is not True %}
+    {% if is_detail_pages is not True %}
       <footer class="recipe-footer">
         <a class="recipe-read-more button button-dark button-full-width" href="{% url "recipes:recipe" recipe.id %}">
           <i class="fas fa-eye"></i>
@@ -67,7 +67,7 @@
       </footer>
     {% endif %}
 
-    {% if is_detail_page is True %}
+    {% if is_detail_pages is True %}
       <div class="preparation-steps">
           {% if recipe.preparation_steps_is_html is True %}
             {{ recipe.preparation_steps|safe }}

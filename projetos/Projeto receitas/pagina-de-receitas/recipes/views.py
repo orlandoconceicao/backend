@@ -9,7 +9,7 @@ def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
     return render(
         request,
-        "page/home.html",
+        "pages/home.html",
         context={
             "recipes": recipes,
         },
@@ -23,7 +23,7 @@ def category(request, category_id):
 
     return render(
         request,
-        "page/category.html",
+        "pages/category.html",
         context={
             "recipes": recipes,
             "title": f"{recipes[0].category.name} - Category | ",
@@ -35,9 +35,9 @@ def recipes(request, id):
     recipe = get_object_or_404(Recipe, id=id, is_published=True)
     return render(
         request,
-        "page/recipe-view.html",
+        "pages/recipe-view.html",
         context={
             "recipe": recipe,
-            "is_detail_page": True,
+            "is_detail_pages": True,
         },
     )
