@@ -6,7 +6,7 @@ from recipes import views
 
 from recipes.models import Category, Recipe, User
 
-from .test_recipe_base import RecipeTestBase
+from .test_recipe_base import RecipeTestBase, Recipe
         
 class RecipeViewsTest(RecipeTestBase):
     
@@ -32,6 +32,7 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertTemplateUsed(response, 'pages/home.html')
             
     def test_recipe_home_template_shows_no_recipes_if_no_recipes(self):
+        Recipe.objects.get(pk=1).delete()
         response = self.client.get(reverse('recipes:home'))
         self.assertIn('Nenhuma receita encontrada', response.content.decode('utf-8'))
         
