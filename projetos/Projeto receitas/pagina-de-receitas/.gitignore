@@ -132,3 +132,6 @@ static/
 .vscode
 .venv
 /__pycache__
+
+# Node
+node_modules/
