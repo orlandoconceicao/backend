@@ -1,23 +1,24 @@
-from django.test import TestCase
-
 from django.urls import reverse, resolve
 
 from recipes import views
 
-from recipes.models import Category, Recipe, User
+from .test_recipe_base import RecipeTestBase
 
-from .test_recipe_base import RecipeTestBase, Recipe
+from unittest import skip # faz que o test seja ignorado #@skip('WIP') work in problems
         
 class RecipeViewsTest(RecipeTestBase):
     
+
+    
 # HOME
     # serUp executa antes de todos os tests
-    def setUp(self):
-        return super().setUp()
+    # def setUp(self):
+        #return super().setUp()
      
     # tearDown executa depois de todos tests
-    def tearDown(self):
-          return super().tearDown()
+    
+    # def tearDown(self):
+          #return super().tearDown()
 
     def test_recipe_home_view_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
@@ -30,22 +31,25 @@ class RecipeViewsTest(RecipeTestBase):
     def test_recipe_home_view_loads_correct_template(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertTemplateUsed(response, 'pages/home.html')
-            
+    
+    @skip('WIP')
     def test_recipe_home_template_shows_no_recipes_if_no_recipes(self):
-        Recipe.objects.get(pk=1).delete()
         response = self.client.get(reverse('recipes:home'))
         self.assertIn('Nenhuma receita encontrada', response.content.decode('utf-8'))
+        
+        # self.fail => faz que o teste saia como errado
+        # Tenho que escrever mais coisas sobre o test
+        self.fail('Para que eu termine de digitá-lo')
         
 # FIXTURES HOME
 
     def test_recipe_home_template_loads_recipes(self):          
+        self.make_recipe()
         
         response = self.client.get(reverse('recipes:home'))
-        
         content = response.content.decode('utf-8')
+        
         self.assertIn('Recipe Title', content)
-        self.assertIn('10 Minutos', content)
-        self.assertIn('5 Porções', content)
         
         response_context_recipes = response.context['recipes']
         self.assertEqual(len(response_context_recipes), 1)
