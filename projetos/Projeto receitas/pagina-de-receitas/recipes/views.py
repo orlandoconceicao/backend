@@ -18,8 +18,8 @@ def home(request):
 
 def category(request, category_id):
     recipes = get_list_or_404(
-        Recipe.objects, category__id=category_id, is_published=True
-    ).order_by("-id")
+        Recipe.objects.order_by("-id"), category__id=category_id, is_published=True,
+    )
 
     return render(
         request,
