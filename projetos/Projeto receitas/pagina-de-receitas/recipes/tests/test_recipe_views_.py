@@ -51,6 +51,15 @@ class RecipeViewsTest(RecipeTestBase):
         
         response_context_recipes = response.context['recipes']
         self.assertEqual(len(response_context_recipes), 1)
+        
+    def test_recipe_home_template_dont_load_recipes_not_published(self): 
+        # testing recipe is_published false dont show
+        # precisa criar receita      
+        self.make_recipe(is_published=False)
+        
+        response = self.client.get(reverse('recipes:home'))
+        
+        self.assertIn('Nenhuma receita encontrada', response.content.decode('utf-8'))
 
 # CATEGORY
 
