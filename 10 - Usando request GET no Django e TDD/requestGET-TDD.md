@@ -1,4 +1,4 @@
-# Seção 10: Usando request.GET no Django e Introdução ao TDD (Test Driven Development)
+# Seção 10: Usando request.GET no Django e Introdu??o ao TDD (Test Driven Development)
 
 ---
 
