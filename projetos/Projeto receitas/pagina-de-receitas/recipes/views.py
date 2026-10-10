@@ -18,7 +18,9 @@ def home(request):
 
 def category(request, category_id):
     recipes = get_list_or_404(
-        Recipe.objects.order_by("-id"), category__id=category_id, is_published=True,
+        Recipe.objects.order_by("-id"),
+        category__id=category_id,
+        is_published=True,
     )
 
     return render(
@@ -41,3 +43,6 @@ def recipes(request, id):
             "is_detail_pages": True,
         },
     )
+
+def search(request):
+    ...  # The implementation of the search view is not provided in the snippet.
