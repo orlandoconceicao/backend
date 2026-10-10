@@ -13,3 +13,4 @@ urlpatterns = [
     path('recipes/<int:id>/', views.recipes, name='recipe'),
     
 ]
+

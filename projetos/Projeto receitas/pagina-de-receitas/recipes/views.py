@@ -45,4 +45,4 @@ def recipes(request, id):
     )
 
 def search(request):
-    ...  # The implementation of the search view is not provided in the snippet.
+    return render(request, 'recipes/pages/search.html', context={})
