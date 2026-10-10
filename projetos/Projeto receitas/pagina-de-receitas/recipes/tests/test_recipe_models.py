@@ -6,8 +6,8 @@ from .test_recipe_base import RecipeTestBase, Recipe
 
 class RecipeModelsTest(RecipeTestBase):
     def setUp(self):
+        super().setUp()
         self.recipe = self.make_recipe()
-        return super().setUp()
 
     def make_recipe_no_default_values(self):
         recipe = Recipe(
@@ -44,7 +44,7 @@ class RecipeModelsTest(RecipeTestBase):
 
         self.assertFalse(
             recipe.preparation_steps_is_html,
-            msg='Recipe preparation_steps_is_html is not False'
+            msg='Recipe preparation_steps_is_html is not False',
         )
 
     def test_recipe_is_published_is_false_by_default(self):
@@ -52,13 +52,20 @@ class RecipeModelsTest(RecipeTestBase):
 
         self.assertFalse(
             recipe.is_published,
-            msg='Recipe is_published is not False'
+            msg='Recipe is_published is not False',
         )
-        
+
     def test_recipe_string_representation(self):
         needed = 'Testing Representation'
-        self.recipe.title = 'Testing Representation'
+        self.recipe.title = needed
         self.recipe.full_clean()
         self.recipe.save()
-        self.assertEqual(str(self.recipe), 'Testing Representation',
-                         msg=f'Recipe string representation must be {needed} but "{str(self.recipe)}" was received.')
+
+        self.assertEqual(
+            str(self.recipe),
+            needed,
+            msg=(
+                f'Recipe string representation must be {needed} '
+                f'but "{str(self.recipe)}" was received.'
+            ),
+        )
