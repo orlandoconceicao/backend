@@ -51,7 +51,43 @@ class RecipeHomeViewsTest(RecipeTestBase):
         
         response_context_recipes = response.context['recipes']
         self.assertEqual(len(response_context_recipes), 1)
-        
+
+    def test_recipe_home_shows_page_number_with_nine_recipes(self):
+        for recipe_number in range(9):
+            self.make_recipe(
+                slug=f'recipe-{recipe_number}',
+                author_data={'username': f'user-{recipe_number}'},
+            )
+
+        response = self.client.get(reverse('recipes:home'))
+
+        self.assertContains(
+            response,
+            '<a class="page-link page-item" href="?page=1">1</a>',
+            html=True,
+        )
+
+    def test_recipe_home_page_two_shows_tenth_recipe(self):
+        for recipe_number in range(10):
+            self.make_recipe(
+                title=f'Recipe {recipe_number}',
+                slug=f'recipe-{recipe_number}',
+                author_data={'username': f'user-{recipe_number}'},
+            )
+
+        first_page = self.client.get(reverse('recipes:home'))
+        self.assertContains(
+            first_page,
+            '<a class="page-link page-item" href="?page=2">2</a>',
+            html=True,
+        )
+
+        second_page = self.client.get(reverse('recipes:home'), {'page': '2'})
+
+        self.assertEqual(second_page.status_code, 200)
+        self.assertEqual(len(second_page.context['recipes']), 1)
+        self.assertEqual(second_page.context['recipes'][0].slug, 'recipe-0')
+
     def test_recipe_home_template_dont_load_recipes_not_published(self): 
         # testing recipe is_published false dont show
         # precisa criar receita      
