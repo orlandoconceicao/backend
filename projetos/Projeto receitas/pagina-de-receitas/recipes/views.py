@@ -8,24 +8,18 @@ from .models import Recipe
 
 from django.core.paginator import Paginator
 
-from utils.pagination import make_pagination_range
+from utils.pagination import make_pagination
+
+import os
+
+
+# variáveis em letra maiúsculas são constantes indica que não pode ser editada
+PER_PAGES = int(os.environ.get('PER_PAGES', 6))
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
     
-    try:
-        current_page = int(request.GET.get("page", 1))
-    except ValueError:
-        current_page = 1
-        
-    paginator = Paginator(recipes, 9)
-    page_object = paginator.get_page(current_page)
-    
-    pagination_range = make_pagination_range(
-        paginator.page_range,
-        4,
-        current_page
-    )
+    page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
 
     return render(
         request,"pages/home.html", 
@@ -41,11 +35,14 @@ def category(request, category_id):
         category__id=category_id,
         is_published=True,
     )
-
+    
+    page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    
     return render(
         request,"pages/category.html",
         context={
-            "recipes": recipes,
+            "recipes": page_object,
+            "pagination_range": pagination_range,
             "title": f"{recipes[0].category.name} - Category | ",
         },
     )
@@ -72,12 +69,16 @@ def search(request):
         ),
         is_published=True,
     ).order_by("-id")
+    
+    page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
 
     return render(
         request,"pages/search.html",
         {
             "page_title": f'Search for "{search_term}" |',
             "search_term": search_term,
-            "recipes": recipes,
+            "recipes": page_object,
+            "pagination_range": pagination_range,
+            "additional_url_query" : f'&q={search_term}',
         },
     )

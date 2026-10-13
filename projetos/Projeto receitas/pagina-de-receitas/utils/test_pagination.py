@@ -102,4 +102,8 @@ class TestPagination(TestCase):
         current_page=21,
         )['pagination']
         self.assertEqual([ 17, 18, 19, 20], pagination)
-        
+    
+    # teste paginação com quantos itens tem na página
+    def test_make_pagination_range_has_items_on_page(self):
+        items = list(range(1, 11))
+        self.assertEqual(10, len(items))

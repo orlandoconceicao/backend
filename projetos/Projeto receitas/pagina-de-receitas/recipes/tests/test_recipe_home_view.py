@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.urls import reverse, resolve
 
 from recipes import views
@@ -59,11 +61,12 @@ class RecipeHomeViewsTest(RecipeTestBase):
                 author_data={'username': f'user-{recipe_number}'},
             )
 
-        response = self.client.get(reverse('recipes:home'))
+        with patch('recipes.views.PER_PAGES', 9):
+            response = self.client.get(reverse('recipes:home'))
 
         self.assertContains(
             response,
-            '<a class="page-link page-item" href="?page=1">1</a>',
+            '<a class="page-link page-item page-current" href="?page=1">1</a>',
             html=True,
         )
 
@@ -75,14 +78,15 @@ class RecipeHomeViewsTest(RecipeTestBase):
                 author_data={'username': f'user-{recipe_number}'},
             )
 
-        first_page = self.client.get(reverse('recipes:home'))
-        self.assertContains(
-            first_page,
-            '<a class="page-link page-item" href="?page=2">2</a>',
-            html=True,
-        )
+        with patch('recipes.views.PER_PAGES', 9):
+            first_page = self.client.get(reverse('recipes:home'))
+            self.assertContains(
+                first_page,
+                '<a class="page-link page-item" href="?page=2">2</a>',
+                html=True,
+            )
 
-        second_page = self.client.get(reverse('recipes:home'), {'page': '2'})
+            second_page = self.client.get(reverse('recipes:home'), {'page': '2'})
 
         self.assertEqual(second_page.status_code, 200)
         self.assertEqual(len(second_page.context['recipes']), 1)
