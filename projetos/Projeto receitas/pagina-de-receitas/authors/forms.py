@@ -20,14 +20,14 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['first_name'], 'Ex.: Orlando')
         add_placeholder(self.fields['last_name'], 'Ex.: Almeida')
 
-
+    
     Senha = forms.CharField(
         required=True,
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite novamente sua senha'
         })
     )
-
+    
     class Meta:
         model = User
         fields = [
