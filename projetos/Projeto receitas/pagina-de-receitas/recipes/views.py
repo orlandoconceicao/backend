@@ -12,6 +12,8 @@ from utils.pagination import make_pagination
 
 import os
 
+from django.contrib import messages
+
 
 # variáveis em letra maiúsculas são constantes indica que não pode ser editada
 PER_PAGES = int(os.environ.get('PER_PAGES', 3))
@@ -20,6 +22,8 @@ def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
     
     page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
+
+    messages.error(request,'MENSAGEM')
 
     return render(
         request,"pages/home.html", 

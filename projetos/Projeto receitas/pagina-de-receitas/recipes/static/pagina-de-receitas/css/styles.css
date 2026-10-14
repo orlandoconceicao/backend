@@ -1,65 +1,84 @@
+/* ==================================================
+   1. VARIÁVEIS GLOBAIS
+   Cores, fontes e espaçamentos utilizados no projeto
+   ================================================== */
+
 :root {
---color-primary: #269fe6;
---color-primary-hover: #2086c2;
---color-primary-dark: #13141f;
---color-primary-dark-hover: #212336;
---color-primary-light: #d4ecfa;
---color-primary-light-hover: #bdd8e7;
+    /* Cores principais */
+    --color-primary: #269fe6;
+    --color-primary-hover: #2086c2;
+    --color-primary-dark: #13141f;
+    --color-primary-dark-hover: #212336;
+    --color-primary-light: #d4ecfa;
+    --color-primary-light-hover: #bdd8e7;
 
---color-white: #fff;
---color-black: #000;
+    /* Preto e branco */
+    --color-white: #fff;
+    --color-black: #000;
 
---color-dark-text: #444;
---color-info-light: #cce5ff;
---color-debug-light: #cce5ff;
---color-success-light: #d4edda;
---color-alert-light: #fff3cd;
---color-warning-light: #fff3cd;
---color-error-light: #f8d7da;
+    /* Cores de texto */
+    --color-dark-text: #444;
 
---color-info-dark: #4d86c4;
---color-debug-dark: #4d86c4;
---color-success-dark: #4a9c5d;
---color-alert-dark: #927f40;
---color-warning-dark: #927f40;
---color-error-dark: #da525d;
+    /* Cores de mensagens */
+    --color-info-light: #cce5ff;
+    --color-debug-light: #cce5ff;
+    --color-success-light: #d4edda;
+    --color-alert-light: #fff3cd;
+    --color-warning-light: #fff3cd;
+    --color-error-light: #f8d7da;
 
---color-gray-0: #f9f9f9;
---color-gray-1: #e0e0e0;
---color-gray-2: #c7c7c7;
---color-gray-3: #aeaeae;
---color-gray-4: #959595;
---color-gray-5: #7d7d7d;
---color-gray-6: #646464;
---color-gray-7: #4b4b4b;
---color-gray-8: #323232;
---color-gray-9: #191919;
+    --color-info-dark: #4d86c4;
+    --color-debug-dark: #4d86c4;
+    --color-success-dark: #4a9c5d;
+    --color-alert-dark: #927f40;
+    --color-warning-dark: #927f40;
+    --color-error-dark: #da525d;
 
---font-primary: sans-serif;
---font-headings: 'Roboto Slab', serif;
+    /* Escala de cinza */
+    --color-gray-0: #f9f9f9;
+    --color-gray-1: #e0e0e0;
+    --color-gray-2: #c7c7c7;
+    --color-gray-3: #aeaeae;
+    --color-gray-4: #959595;
+    --color-gray-5: #7d7d7d;
+    --color-gray-6: #646464;
+    --color-gray-7: #4b4b4b;
+    --color-gray-8: #323232;
+    --color-gray-9: #191919;
 
---spacing-gutter-medium: 2rem;
---spacing-gutter-large: 4rem;
+    /* Tipografia */
+    --font-primary: sans-serif;
+    --font-headings: 'Roboto Slab', serif;
+
+    /* Espaçamentos */
+    --spacing-gutter-medium: 2rem;
+    --spacing-gutter-large: 4rem;
 }
 
-/* Reset */
+
+/* ==================================================
+   2. RESET E CONFIGURAÇÕES GERAIS
+   Configurações iniciais dos elementos HTML
+   ================================================== */
 
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 body {
-font-size: 1.6rem;
-font-family: var(--font-primary);
-background: var(--color-gray-2);
-color: var(--color-dark-text);
+    font-size: 1.6rem;
+    font-family: var(--font-primary);
+    background: var(--color-gray-1);
+    color: var(--color-dark-text);
 }
+
+/* Fonte dos títulos */
 
 h1,
 h2,
@@ -67,278 +86,423 @@ h3,
 h4,
 h5,
 h6 {
-font-family: var(--font-headings);
+    font-family: var(--font-headings);
 }
 
-/* Container */
+
+/* ==================================================
+   3. CONTAINER E ESTRUTURA GERAL
+   Largura máxima e espaçamento das páginas
+   ================================================== */
 
 .container {
-width: 100%;
-max-width: 144rem;
-margin: 0 auto;
-padding: var(--spacing-gutter-medium);
+    width: 100%;
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: var(--spacing-gutter-medium);
 }
 
-/* Header */
+/* Conteúdo principal */
+
+.main-content {
+    padding-top: 0;
+}
+
+/* Alinhamento centralizado */
+
+.center {
+    text-align: center;
+}
+
+
+/* ==================================================
+   4. CABEÇALHO (HEADER)
+   Fundo, logotipo e nome do site
+   ================================================== */
 
 .main-header-container {
-background: var(--color-primary-dark);
+    background: var(--color-primary-dark);
 }
+
+/* Logotipo */
 
 .main-logo {
-display: flex;
-flex-flow: row nowrap;
-align-items: center;
-justify-content: center;
-width: fit-content;
-margin: 0 auto;
-color: var(--color-white);
-font-size: 3.4rem;
-text-decoration: none;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+    color: var(--color-white);
+    font-size: 3.4rem;
+    text-decoration: none;
 }
+
+/* Ícone do logotipo */
 
 .fas.fa-utensils {
-margin-right: 1rem;
+    margin-right: 1rem;
 }
+
+/* Texto do logotipo */
 
 .main-logo-text {
-font-family: var(--font-headings);
+    font-family: var(--font-headings);
 }
 
-/* Search form */
+
+/* ==================================================
+   5. FORMULÁRIO DE PESQUISA
+   Campo de busca e botão de pesquisa
+   ================================================== */
 
 .search-form {
-position: relative;
-max-width: 34rem;
-margin: 0 auto;
-border: 0.1rem solid var(--color-primary-dark);
-border-radius: 0.4rem;
-box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
-transition: all 300ms ease-in-out;
+    position: relative;
+    max-width: 34rem;
+    margin: 0 auto;
+    border: 0.1rem solid var(--color-primary-dark);
+    border-radius: 0.4rem;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+    transition: all 300ms ease-in-out;
 }
+
+/* Aparência ao selecionar o campo */
 
 .search-form:focus-within {
-border-color: var(--color-primary);
-background: var(--color-white);
+    border-color: var(--color-primary);
+    background: var(--color-white);
 }
 
+/* Cor do botão ao selecionar o campo */
+
 .search-form:focus-within .search-button {
-color: var(--color-primary);
+    color: var(--color-primary);
 }
+
+/* Campo e botão */
 
 .search-input,
 .search-button {
-padding: 1rem;
-border: none;
-background: none;
-outline: none;
-transition: all 300ms ease-in-out;
+    padding: 1rem;
+    border: none;
+    background: none;
+    outline: none;
+    transition: all 300ms ease-in-out;
 }
+
+/* Campo de texto */
 
 .search-input {
-width: 100%;
-padding-right: 3rem;
+    width: 100%;
+    padding-right: 3rem;
 }
+
+/* Botão de pesquisa */
 
 .search-button {
-position: absolute;
-top: 0;
-right: 0;
-cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
 }
 
-/* Main content */
 
-.main-content {
-padding-top: 0;
-}
-
-/* Recipe grid */
+/* ==================================================
+   6. TELA INICIAL — LISTAGEM DE RECEITAS
+   Grade de receitas e organização dos cartões
+   ================================================== */
 
 .main-content-list {
-display: grid;
-grid-template-columns: repeat(3, minmax(0, 1fr));
-align-items: start;
-gap: var(--spacing-gutter-large);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--spacing-gutter-large);
 }
 
-/* Recipe cards */
+
+/* ==================================================
+   7. TELA INICIAL — RECEITAS NÃO ENCONTRADAS
+   Mensagem centralizada quando a lista está vazia
+   Requer a classe "no-recipes" no HTML
+   ================================================== */
+
+.main-content-list.no-recipes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 20rem;
+    text-align: center;
+}
+
+/* Área da mensagem */
+
+.main-content-list.no-recipes .empty-state {
+    width: 100%;
+    text-align: center;
+}
+
+/* Texto da mensagem */
+
+.main-content-list.no-recipes h1 {
+    margin: 0;
+    font-size: clamp(1.6rem, 5vw, 3.2rem);
+    white-space: nowrap;
+    text-align: center;
+}
+
+
+/* ==================================================
+   8. CARTÕES DE RECEITAS
+   Estrutura, tamanho e efeitos dos cartões
+   ================================================== */
 
 .recipe-list-item {
-width: 100%;
-min-width: 0;
-max-width: none;
-height: fit-content;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: fit-content;
 }
+
+/* Cartão */
 
 .recipe {
-overflow: hidden;
-border-radius: 0.4rem;
-background: var(--color-white);
-box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
-transform: scale(1);
-transition:
-transform 300ms ease-in-out,
-box-shadow 300ms ease-in-out;
+    overflow: hidden;
+    border-radius: 0.4rem;
+    background: var(--color-white);
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
+
+    transform: scale(1);
+
+    transition:
+        transform 300ms ease-in-out,
+        box-shadow 300ms ease-in-out;
 }
+
+/* Efeito ao passar o mouse */
 
 .recipe-list-item:hover {
-transform: scale(1.02);
-box-shadow: -8px 8px 18px rgba(0, 0, 0, 0.25);
+    transform: scale(1.02);
+    box-shadow: -8px 8px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* Recipe images */
+
+/* ==================================================
+   9. IMAGENS DAS RECEITAS
+   Imagens dos cartões na listagem
+   ================================================== */
 
 .recipe-cover img {
-display: block;
-width: 100%;
-object-fit: cover;
-object-position: center;
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
 }
+
+/* Área da imagem na listagem */
 
 .main-content-list .recipe-cover {
-width: 100%;
-height: 260px;
-overflow: hidden;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
 }
+
+/* Link que envolve a imagem */
 
 .main-content-list .recipe-cover a {
-display: block;
-width: 100%;
-height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
+
+/* Imagem dentro do cartão */
 
 .main-content-list .recipe-cover img {
-height: 100%;
+    height: 100%;
 }
 
-/* Recipe title */
+
+/* ==================================================
+   10. TÍTULOS DAS RECEITAS
+   Espaçamento e aparência dos títulos
+   ================================================== */
 
 .recipe-title-container {
-padding: var(--spacing-gutter-medium);
-padding-bottom: 2rem;
+    padding: var(--spacing-gutter-medium);
+    padding-bottom: 2rem;
 }
+
+/* Link do título */
 
 .recipe-title-container a {
-color: var(--color-primary-dark);
-text-decoration: none;
+    color: var(--color-primary-dark);
+    text-decoration: none;
 }
+
+/* Quebra de palavras muito longas */
 
 .recipe-title {
-overflow-wrap: anywhere;
+    overflow-wrap: anywhere;
 }
 
-/* Author */
+
+/* ==================================================
+   11. AUTOR DA RECEITA
+   Nome, informações e links do autor
+   ================================================== */
 
 .recipe-author {
-display: flex;
-flex-flow: row wrap;
-gap: 0.8rem;
-padding: 0 var(--spacing-gutter-medium);
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.8rem;
+    padding: 0 var(--spacing-gutter-medium);
 }
+
+/* Informações do autor */
 
 .recipe-author-item {
-margin-right: 1rem;
-color: var(--color-gray-4);
-font-size: 1.4rem;
-font-style: italic;
+    margin-right: 1rem;
+    color: var(--color-gray-4);
+    font-size: 1.4rem;
+    font-style: italic;
 }
+
+/* Links do autor */
 
 .recipe-author a {
-color: var(--color-primary);
-text-decoration: none;
-transition: color 300ms ease-in-out;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 300ms ease-in-out;
 }
+
+/* Efeito dos links */
 
 .recipe-author a:hover {
-color: var(--color-primary-dark);
+    color: var(--color-primary-dark);
 }
 
-/* Recipe content */
+
+/* ==================================================
+   12. CONTEÚDO DA RECEITA
+   Descrição e textos dos cartões
+   ================================================== */
 
 .recipe-content {
-padding-top: 2rem;
+    padding-top: 2rem;
 }
 
 .recipe-content > p {
-padding: 0 2rem 1rem;
-line-height: 1.6;
-overflow-wrap: anywhere;
+    padding: 0 2rem 1rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
 }
 
-/* Preparation time and servings */
+
+/* ==================================================
+   13. METADADOS DA RECEITA
+   Tempo de preparo e quantidade de porções
+   ================================================== */
 
 .recipe-meta-container {
-display: flex;
-flex-flow: row wrap;
-gap: 1rem;
-padding: var(--spacing-gutter-medium);
-background: var(--color-gray-1);
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    padding: var(--spacing-gutter-medium);
+    background: var(--color-gray-1);
 }
+
+/* Cada informação */
 
 .recipe-meta {
-display: flex;
-flex: 1 1 0;
-flex-flow: column nowrap;
-min-width: 0;
-gap: 0.5rem;
-text-align: center;
+    display: flex;
+    flex: 1 1 0;
+    flex-flow: column nowrap;
+    min-width: 0;
+    gap: 0.5rem;
+    text-align: center;
 }
+
+/* Título do metadado */
 
 .recipe-meta-title {
-font-size: 1.6rem;
+    font-size: 1.6rem;
 }
+
+/* Texto do metadado */
 
 .recipe-meta-text {
-overflow-wrap: anywhere;
+    overflow-wrap: anywhere;
 }
 
-/* Read more button */
+
+/* ==================================================
+   14. RODAPÉ DOS CARTÕES
+   Botão ou link para ler a receita
+   ================================================== */
 
 .recipe-footer a {
-display: block;
-padding: 1.5rem var(--spacing-gutter-medium);
-background: var(--color-primary-dark);
-color: var(--color-white);
-text-align: center;
-text-decoration: none;
-transition: filter 300ms ease-in-out;
+    display: block;
+    padding: 1.5rem var(--spacing-gutter-medium);
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+    text-align: center;
+    text-decoration: none;
+    transition: filter 300ms ease-in-out;
 }
+
+/* Efeito do botão */
 
 .recipe-footer a:hover {
-filter: brightness(2);
+    filter: brightness(2);
 }
 
-/* Recipe detail page */
+
+/* ==================================================
+   15. TELA DE DETALHES DA RECEITA
+   Largura do cartão e imagem da receita individual
+   ================================================== */
+
+/* Centralização e largura do conteúdo */
 
 .main-content-detail .recipe-list-item {
-max-width: 74rem;
-margin: 0 auto;
+    max-width: 74rem;
+    margin: 0 auto;
 }
+
+/* Área da imagem */
 
 .main-content-detail .recipe-cover {
-width: 100%;
-height: auto;
-max-height: none;
-overflow: hidden;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    overflow: hidden;
 }
+
+/* Link da imagem */
 
 .main-content-detail .recipe-cover a {
-display: block;
-width: 100%;
-height: auto;
+    display: block;
+    width: 100%;
+    height: auto;
 }
+
+/* Imagem da receita individual */
 
 .main-content-detail .recipe-cover img {
-height: auto;
-max-height: 55rem;
+    height: auto;
+    max-height: 55rem;
 }
 
-/* Preparation steps */
+
+/* ==================================================
+   16. MODO DE PREPARO
+   Espaçamento dos passos e das listas
+   ================================================== */
 
 .preparation-steps {
-padding: 1rem 2rem;
+    padding: 1rem 2rem;
 }
+
+/* Espaçamento dos títulos e parágrafos */
 
 .preparation-steps h1,
 .preparation-steps h2,
@@ -348,62 +512,22 @@ padding: 1rem 2rem;
 .preparation-steps h6,
 .preparation-steps p,
 .preparation-steps pre {
-margin: 2rem 0;
+    margin: 2rem 0;
 }
+
+/* Listas ordenadas e não ordenadas */
 
 .preparation-steps ol,
 .preparation-steps ul {
-margin: 2rem 0;
-padding: 0 2rem;
+    margin: 2rem 0;
+    padding: 0 2rem;
 }
 
-/* Text alignment */
 
-.center {
-text-align: center;
-}
-
-/* Responsive layout */
-
-@media (max-width: 1100px) {
-.main-content-list {
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: var(--spacing-gutter-medium);
-}
-}
-
-@media (max-width: 700px) {
-.main-content-list {
-grid-template-columns: minmax(0, 1fr);
-}
-
-.main-content-list .recipe-cover {
-height: 24rem;
-}
-
-.main-content-detail .recipe-cover {
-height: auto;
-}
-}
-
-@media (max-width: 480px) {
-.container {
-padding: 1.5rem;
-}
-
-.main-content-list .recipe-cover {
-height: 20rem;
-}
-
-.main-content-detail .recipe-cover {
-height: auto;
-}
-
-.recipe-title-container {
-padding: 1.5rem;
-}
-}
-
+/* ==================================================
+   17. RODAPÉ DO SITE
+   Área inferior e links do site
+   ================================================== */
 
 .main-footer {
     display: flex;
@@ -414,34 +538,163 @@ padding: 1.5rem;
     padding: var(--spacing-gutter-large);
 }
 
+/* Links do rodapé */
+
 .main-footer a {
     color: var(--color-white);
     text-decoration: none;
     transition: all 300ms ease-in-out;
 }
 
+/* Efeito dos links */
+
 .main-footer a:hover {
-    filter: brightness(.8);
+    filter: brightness(0.8);
 }
+
+
+/* ==================================================
+   18. PAGINAÇÃO
+   Navegação entre páginas de receitas
+   ================================================== */
+
+/* Contêiner dos itens */
 
 .pagination-content {
     display: flex;
     flex-flow: row wrap;
     gap: 1rem 0.5rem;
 }
+
+/* Itens da paginação */
+
 .pagination .page-item {
     text-decoration: none;
     background: var(--color-gray-3);
     padding: 0.5rem 1rem;
 }
 
+/* Links da paginação */
+
 .pagination .page-link {
     text-decoration: none;
     background: var(--color-primary);
-    color: var(--color-white);    
+    color: var(--color-white);
 }
+
+/* Página atual */
 
 .pagination .page-current {
     background: var(--color-primary-dark);
-   
+}
+
+
+/* ==================================================
+   19. RESPONSIVIDADE — TELAS MÉDIAS
+   Ajustes para telas de até 1100px
+   ================================================== */
+
+@media (max-width: 1100px) {
+    .main-content-list:not(.no-recipes) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-gutter-medium);
+    }
+}
+
+
+/* ==================================================
+   20. RESPONSIVIDADE — TABLETS E CELULARES
+   Ajustes para telas de até 700px
+   ================================================== */
+
+@media (max-width: 700px) {
+
+    /* Uma coluna de receitas */
+
+    .main-content-list:not(.no-recipes) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Imagens da listagem */
+
+    .main-content-list .recipe-cover {
+        height: 24rem;
+    }
+
+    /* Imagem da tela de detalhes */
+
+    .main-content-detail .recipe-cover {
+        height: auto;
+    }
+}
+
+
+/* ==================================================
+   21. RESPONSIVIDADE — CELULARES PEQUENOS
+   Ajustes para telas de até 480px
+   ================================================== */
+
+@media (max-width: 480px) {
+
+    /* Espaçamento geral */
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    /* Imagens dos cartões */
+
+    .main-content-list .recipe-cover {
+        height: 20rem;
+    }
+
+    /* Imagem dos detalhes */
+
+    .main-content-detail .recipe-cover {
+        height: auto;
+    }
+
+    /* Título dos cartões */
+
+    .recipe-title-container {
+        padding: 1.5rem;
+    }
+
+}
+
+/* ==================================================
+   21. ADICIONA COR NAS FLASH MESSAGES
+   ================================================== */
+
+.message {
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-dark-text);
+  background: var(--color-gray-2);
+  color: var(--color-dark-text);
+}
+.message-error {
+  border: 1px solid var(--color-error-dark);
+  background: var(--color-error-light);
+  color: var(--color-error-dark);
+}
+.message-success {
+  border: 1px solid var(--color-success-dark);
+  background: var(--color-success-light);
+  color: var(--color-success-dark);
+}
+.message-warning {
+  border: 1px solid var(--color-warning-dark);
+  background: var(--color-warning-light);
+  color: var(--color-warning-dark);
+}
+.message-info {
+  border: 1px solid var(--color-info-dark);
+  background: var(--color-info-light);
+  color: var(--color-info-dark);
+}
+.message-debug {
+  border: 1px solid var(--color-debug-dark);
+  background: var(--color-debug-light);
+  color: var(--color-debug-dark);
 }

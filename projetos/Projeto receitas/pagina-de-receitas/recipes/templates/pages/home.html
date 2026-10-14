@@ -6,16 +6,15 @@
 
 {% block content %}
 
-  <div class="main-content main-content-list container">
+{% include "partials/messages.html" %}
 
+  <div class="main-content main-content-list container {% if not recipes %}no-recipes{% endif %}">
     {% for recipe in recipes %}
       {% include 'partials/recipes.html' %}
-      {% empty %}
-      <div class="center">
+    {% empty %}
+      <div class="empty-state">
         <h1>Nenhuma receita encontrada</h1>
       </div>
     {% endfor %}
-    
   </div>
-
 {% endblock %}

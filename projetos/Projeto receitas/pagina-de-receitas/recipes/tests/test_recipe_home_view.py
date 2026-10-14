@@ -41,6 +41,11 @@ class RecipeHomeViewsTest(RecipeTestBase):
     def test_recipe_home_template_shows_no_recipes_if_no_recipes(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertIn('Nenhuma receita encontrada', response.content.decode('utf-8'))
+
+    def test_recipe_home_error_message_uses_matching_style_class(self):
+        response = self.client.get(reverse('recipes:home'))
+
+        self.assertContains(response, 'class="message message-error"')
         
 # FIXTURES HOME
 

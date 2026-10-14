@@ -17,6 +17,15 @@ class RecipeSearchViewsTest(RecipeTestBase):
     def test_recipe_search_loads_correct_template(self):
         response = self.client.get(reverse('recipes:search') + '?q=teste')
         self.assertTemplateUsed(response, 'pages/search.html')
+
+    def test_recipe_search_empty_state_uses_centered_single_line_layout(self):
+        response = self.client.get(reverse('recipes:search') + '?q=oi')
+
+        self.assertContains(
+            response,
+            'class="main-content main-content-list container no-recipes"',
+        )
+        self.assertContains(response, 'class="empty-state"')
         
     def test_recipe_search_raises_404_if_no_search_term(self):
         url = reverse('recipes:search')

@@ -1,5 +1,9 @@
 import os
+
 from pathlib import Path
+
+from django.contrib.messages import constants
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -93,3 +97,11 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / 'static'
+
+MESSAGE_TAGS = {
+    constants.DEBUG: 'message-debug',
+    constants.ERROR: 'message-error',
+    constants.INFO: 'message-info',
+    constants.SUCCESS: 'message-success',
+    constants.WARNING: 'message-warning',
+}
