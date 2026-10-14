@@ -1,7 +1,33 @@
 from django import forms
 from django.contrib.auth.models import User
 
+
+def add_attr(field, attr_name, attr_new_val):
+    existing = field.widget.attrs.get(attr_name, '')
+    field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
+
+
+def add_placeholder(field, placeholder_val):
+    field.widget.attrs['placeholder'] = placeholder_val
+    add_attr(field, 'placeholder', placeholder_val)
+
 class RegisterForm(forms.ModelForm):
+    # Para sobrescrever digite o mesmo nome do input e colcoa o que quiser já dentro dos parenteses
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        add_placeholder(self.fields['username'], 'Digite seu usuário')
+        add_placeholder(self.fields['email'], 'digite seu e-mail')
+        add_placeholder(self.fields['first_name'], 'Ex.: Orlando')
+        add_placeholder(self.fields['last_name'], 'Ex.: Almeida')
+
+
+    Senha = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Digite novamente sua senha'
+        })
+    )
+
     class Meta:
         model = User
         fields = [
