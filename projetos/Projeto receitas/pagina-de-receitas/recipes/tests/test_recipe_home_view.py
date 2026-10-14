@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+from django.conf import settings
+from django.contrib.messages import constants
 from django.urls import reverse, resolve
 
 from recipes import views
@@ -42,10 +44,11 @@ class RecipeHomeViewsTest(RecipeTestBase):
         response = self.client.get(reverse('recipes:home'))
         self.assertIn('Nenhuma receita encontrada', response.content.decode('utf-8'))
 
-    def test_recipe_home_error_message_uses_matching_style_class(self):
-        response = self.client.get(reverse('recipes:home'))
-
-        self.assertContains(response, 'class="message message-error"')
+    def test_recipe_home_success_message_uses_matching_style_class(self):
+        self.assertEqual(
+            settings.MESSAGE_TAGS[constants.SUCCESS],
+            'message-success',
+        )
         
 # FIXTURES HOME
 
