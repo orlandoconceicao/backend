@@ -1,5 +1,5 @@
 /* ==================================================
-   1. VARIÁVEIS GLOBAIS
+   VARIÁVEIS GLOBAIS
    Cores, fontes e espaçamentos utilizados no projeto
    ================================================== */
 
@@ -57,7 +57,7 @@
 
 
 /* ==================================================
-   2. RESET E CONFIGURAÇÕES GERAIS
+   RESET E CONFIGURAÇÕES GERAIS
    Configurações iniciais dos elementos HTML
    ================================================== */
 
@@ -91,7 +91,7 @@ h6 {
 
 
 /* ==================================================
-   3. CONTAINER E ESTRUTURA GERAL
+   CONTAINER E ESTRUTURA GERAL
    Largura máxima e espaçamento das páginas
    ================================================== */
 
@@ -116,7 +116,7 @@ h6 {
 
 
 /* ==================================================
-   4. CABEÇALHO (HEADER)
+   CABEÇALHO (HEADER)
    Fundo, logotipo e nome do site
    ================================================== */
 
@@ -152,7 +152,7 @@ h6 {
 
 
 /* ==================================================
-   5. FORMULÁRIO DE PESQUISA
+   FORMULÁRIO DE PESQUISA
    Campo de busca e botão de pesquisa
    ================================================== */
 
@@ -208,7 +208,7 @@ h6 {
 
 
 /* ==================================================
-   6. TELA INICIAL — LISTAGEM DE RECEITAS
+   TELA INICIAL — LISTAGEM DE RECEITAS
    Grade de receitas e organização dos cartões
    ================================================== */
 
@@ -221,7 +221,7 @@ h6 {
 
 
 /* ==================================================
-   7. TELA INICIAL — RECEITAS NÃO ENCONTRADAS
+   TELA INICIAL — RECEITAS NÃO ENCONTRADAS
    Mensagem centralizada quando a lista está vazia
    Requer a classe "no-recipes" no HTML
    ================================================== */
@@ -252,7 +252,7 @@ h6 {
 
 
 /* ==================================================
-   8. CARTÕES DE RECEITAS
+   CARTÕES DE RECEITAS
    Estrutura, tamanho e efeitos dos cartões
    ================================================== */
 
@@ -287,7 +287,7 @@ h6 {
 
 
 /* ==================================================
-   9. IMAGENS DAS RECEITAS
+   IMAGENS DAS RECEITAS
    Imagens dos cartões na listagem
    ================================================== */
 
@@ -322,7 +322,7 @@ h6 {
 
 
 /* ==================================================
-   10. TÍTULOS DAS RECEITAS
+   TÍTULOS DAS RECEITAS
    Espaçamento e aparência dos títulos
    ================================================== */
 
@@ -346,7 +346,7 @@ h6 {
 
 
 /* ==================================================
-   11. AUTOR DA RECEITA
+   AUTOR DA RECEITA
    Nome, informações e links do autor
    ================================================== */
 
@@ -382,7 +382,7 @@ h6 {
 
 
 /* ==================================================
-   12. CONTEÚDO DA RECEITA
+   CONTEÚDO DA RECEITA
    Descrição e textos dos cartões
    ================================================== */
 
@@ -398,7 +398,7 @@ h6 {
 
 
 /* ==================================================
-   13. METADADOS DA RECEITA
+   METADADOS DA RECEITA
    Tempo de preparo e quantidade de porções
    ================================================== */
 
@@ -435,7 +435,7 @@ h6 {
 
 
 /* ==================================================
-   14. RODAPÉ DOS CARTÕES
+   RODAPÉ DOS CARTÕES
    Botão ou link para ler a receita
    ================================================== */
 
@@ -457,7 +457,7 @@ h6 {
 
 
 /* ==================================================
-   15. TELA DE DETALHES DA RECEITA
+   TELA DE DETALHES DA RECEITA
    Largura do cartão e imagem da receita individual
    ================================================== */
 
@@ -494,7 +494,7 @@ h6 {
 
 
 /* ==================================================
-   16. MODO DE PREPARO
+   MODO DE PREPARO
    Espaçamento dos passos e das listas
    ================================================== */
 
@@ -525,7 +525,7 @@ h6 {
 
 
 /* ==================================================
-   17. RODAPÉ DO SITE
+   RODAPÉ DO SITE
    Área inferior e links do site
    ================================================== */
 
@@ -554,7 +554,7 @@ h6 {
 
 
 /* ==================================================
-   18. PAGINAÇÃO
+   PAGINAÇÃO
    Navegação entre páginas de receitas
    ================================================== */
 
@@ -587,85 +587,10 @@ h6 {
 .pagination .page-current {
     background: var(--color-primary-dark);
 }
-/* ==================================================
-   ESTILISAÇÃO DO FORM
-   ================================================== */
-
-/* ==================================================
-   19. RESPONSIVIDADE — TELAS MÉDIAS
-   Ajustes para telas de até 1100px
-   ================================================== */
-
-@media (max-width: 1100px) {
-    .main-content-list:not(.no-recipes) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-gutter-medium);
-    }
-}
 
 
 /* ==================================================
-   20. RESPONSIVIDADE — TABLETS E CELULARES
-   Ajustes para telas de até 700px
-   ================================================== */
-
-@media (max-width: 700px) {
-
-    /* Uma coluna de receitas */
-
-    .main-content-list:not(.no-recipes) {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    /* Imagens da listagem */
-
-    .main-content-list .recipe-cover {
-        height: 24rem;
-    }
-
-    /* Imagem da tela de detalhes */
-
-    .main-content-detail .recipe-cover {
-        height: auto;
-    }
-}
-
-
-/* ==================================================
-   21. RESPONSIVIDADE — CELULARES PEQUENOS
-   Ajustes para telas de até 480px
-   ================================================== */
-
-@media (max-width: 480px) {
-
-    /* Espaçamento geral */
-
-    .container {
-        padding: 1.5rem;
-    }
-
-    /* Imagens dos cartões */
-
-    .main-content-list .recipe-cover {
-        height: 20rem;
-    }
-
-    /* Imagem dos detalhes */
-
-    .main-content-detail .recipe-cover {
-        height: auto;
-    }
-
-    /* Título dos cartões */
-
-    .recipe-title-container {
-        padding: 1.5rem;
-    }
-
-}
-
-/* ==================================================
-   21. ADICIONA COR NAS FLASH MESSAGES
+   ADICIONA COR NAS FLASH MESSAGES
    ================================================== */
 
 .message {
@@ -710,4 +635,130 @@ h6 {
     display: flex;
     flex-flow: column nowrap;
     gap: calc(var(--spacing-gutter-medium) / 2);
+}
+
+/* ==================================================
+   ESTILISAÇÃO DO FORM
+   Estilização do formulário de cadastro
+   ================================================== */
+
+.form-content {
+  max-width: 64rem;
+  margin: 0 auto;
+  margin-bottom: var(--spacing-gutter-medium);
+}
+
+.form-content label,
+.form-content .help-text,
+.errorlist {
+  display: block;
+  margin: 0.5rem 0;
+  font-size: 1.4rem;
+  list-style-type: none;
+}
+
+.errorlist {
+  color: var(--color-error-dark);
+}
+
+.form-content input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--color-primary-dark);
+}
+
+.form-content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: calc(var(--spacing-gutter-medium) / 2) var(--spacing-gutter-medium);
+}
+
+.form-content button {
+  padding: 1rem 2rem;
+  border: none;
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border-radius: .4rem;
+}
+
+.form-content button:hover {
+    background: var(--color-gray-7);
+    color: var(--color-white);
+    transition: 0.3s;
+    
+}
+/* ==================================================
+   RESPONSIVIDADE — TELAS MÉDIAS
+   Ajustes para telas de até 1100px
+   ================================================== */
+
+@media (max-width: 1100px) {
+    .main-content-list:not(.no-recipes) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-gutter-medium);
+    }
+}
+
+
+/* ==================================================
+   RESPONSIVIDADE — TABLETS E CELULARES
+   Ajustes para telas de até 700px
+   ================================================== */
+
+@media (max-width: 700px) {
+
+    /* Uma coluna de receitas */
+
+    .main-content-list:not(.no-recipes) .form-content-grid{
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Imagens da listagem */
+
+    .main-content-list .recipe-cover {
+        height: 24rem;
+    }
+
+    /* Imagem da tela de detalhes */
+
+    .main-content-detail .recipe-cover {
+        height: auto;
+    }
+}
+
+
+/* ==================================================
+   RESPONSIVIDADE — CELULARES PEQUENOS
+   Ajustes para telas de até 480px
+   ================================================== */
+
+@media (max-width: 480px) {
+
+    /* Espaçamento geral */
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    /* Imagens dos cartões */
+
+    .main-content-list .recipe-cover {
+        height: 20rem;
+    }
+
+    /* Imagem dos detalhes */
+
+    .main-content-detail .recipe-cover {
+        height: auto;
+    }
+
+    /* Título dos cartões */
+
+    .recipe-title-container {
+        padding: 1.5rem;
+    }
+
+    
+
 }
