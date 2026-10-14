@@ -587,7 +587,9 @@ h6 {
 .pagination .page-current {
     background: var(--color-primary-dark);
 }
-
+/* ==================================================
+   ESTILISAÇÃO DO FORM
+   ================================================== */
 
 /* ==================================================
    19. RESPONSIVIDADE — TELAS MÉDIAS
