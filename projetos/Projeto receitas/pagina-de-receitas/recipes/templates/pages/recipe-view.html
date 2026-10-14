@@ -1,8 +1,6 @@
 {% extends 'global/base.html' %}
 
-{% block title %}
-  {{ recipe.title }} - {{ recipe.category.name }}
-{% endblock %}
+{% block title %}{{ recipe.title }} - {{ recipe.category.name }}{% endblock %}
 
 {% block content %}
   <div class="main-content main-content-detail container">
