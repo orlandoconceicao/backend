@@ -1,25 +1,31 @@
-from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import Http404
+from django.shortcuts import redirect, render
 
 from .forms import RegisterForm
 
-from django.http import Http404
 
 def register_view(request):
-    form = RegisterForm()
+    register_form_data = request.session.get('register_form_data', None)
+    form = RegisterForm(register_form_data)
+
     return render(request, 'authors/pages/register_view.html', {
         'form': form,
     })
-    
+
+
 def register_create(request):
-    if not request.POST:
+    if request.method != 'POST':
         raise Http404()
-    
+
     POST = request.POST
+    request.session['register_form_data'] = POST.dict()
     form = RegisterForm(POST)
 
-    if not form.is_valid():
-        return render(request, 'authors/pages/register_view.html', {
-            'form': form,
-        })
-    
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Seu cadastro foi criado!')
+
+        request.session.pop('register_form_data', None)
+
     return redirect('authors:register')
