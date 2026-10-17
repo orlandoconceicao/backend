@@ -37,7 +37,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Orlando',
             'class': 'classe-widget',
-        })
+        }),
+        error_messages={
+            'required': 'Digite seu primeiro nome antes de enviar.',
+        }
     )
 
     # Campo de último nome
@@ -47,7 +50,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Almeida',
             'class': 'classe-widget',
-        })
+        }),
+        error_messages={
+            'required': 'Digite seu sobrenome antes de enviar.',
+        }
     )
 
     # Campo de nome de usuário
@@ -60,7 +66,12 @@ class RegisterForm(forms.ModelForm):
         }),
         error_messages={
             'required': 'Digite seu usuário antes de enviar.',
-        }
+            'unique': 'Este nome de usuário já está em uso.',
+            'min_length': 'O nome de usuário deve ter no minimo 4 caracteres.',
+            'max_length': 'O nome de usuário deve ter no máximo 150 caracteres.',
+        },
+        min_length=4,
+        max_length=150,
     )
 
     # Campo de e-mail
@@ -70,7 +81,11 @@ class RegisterForm(forms.ModelForm):
         help_text='Informe um e-mail válido para contato.',
         widget=forms.EmailInput(attrs={
             'placeholder': 'Digite seu e-mail',
-        })
+        }),
+        error_messages={
+            'required': 'Digite seu e-mail antes de enviar.',
+            'invalid': 'Digite um endereço de e-mail válido.',
+        }
     )
 
     # Campo de senha
@@ -81,7 +96,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite sua senha',
         }),
-        validators=[strong_password]
+        validators=[strong_password],
+        error_messages={
+            'required': 'Digite sua senha antes de enviar.',
+        }
     )
 
     # Campo para confirmar a senha
@@ -90,7 +108,10 @@ class RegisterForm(forms.ModelForm):
         label='Confirme sua senha',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite novamente sua senha',
-        })
+        }),
+        error_messages={
+            'required': 'Confirme sua senha antes de enviar.',
+        }
     )
 
     class Meta:
@@ -115,7 +136,7 @@ class RegisterForm(forms.ModelForm):
         if password and password2 and password != password2:
             self.add_error(
                 'password2',
-                'As senhas devem ser iguais.'
+                'As senhas informadas não coincidem.'
             )
 
         return cleaned_data
