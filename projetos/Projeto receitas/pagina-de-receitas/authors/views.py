@@ -53,15 +53,17 @@ def login_create(request):
             username=form.cleaned_data.get('username', ''),
             password=form.cleaned_data.get('password', ''),
         )
-        
-        if authenticated_user is not None:
-            messages.success(request='Você esta logado')
-            login(authenticated_user)
-        else:
-            messages.error(request='Credenciais inválidas')
-    else:
-        messages.error(request='Usuário ou senha incorreto')
-        return redirect(login_url)
+
+        if authenticated_user is None:
+            messages.error(request, 'Credenciais inválidas')
+            return redirect(login_url)
+
+        login(request, authenticated_user)
+        messages.success(request, 'Você está logado.')
+        return redirect('recipes:home')
+
+    messages.error(request, 'Usuário ou senha incorreto')
+    return redirect(login_url)
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
