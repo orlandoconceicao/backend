@@ -1,9 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth import login
 from django.http import Http404
 from django.shortcuts import redirect, render
-
-from .forms import RegisterForm
-
+from django.urls import reverse
+from .forms import RegisterForm, LoginForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
@@ -11,6 +13,7 @@ def register_view(request):
 
     return render(request, 'authors/pages/register_view.html', {
         'form': form,
+        'form_action': reverse('authors:register_create'),
     })
 
 
@@ -23,9 +26,44 @@ def register_create(request):
     form = RegisterForm(POST)
 
     if form.is_valid():
-        form.save()
+        user = form.save()
+        login(request, user)
         messages.success(request, 'Seu cadastro foi criado!')
 
         request.session.pop('register_form_data', None)
+        return redirect('recipes:home')
 
     return redirect('authors:register')
+
+def login_view(request):
+    form = LoginForm
+    return render(request,'authors/pages/login.html', {
+        'form': form,
+        'form_action': reverse('authors:login_create')
+    })
+
+def login_create(request):
+    if request.method != 'POST':
+        raise Http404()
+    form = LoginForm(request.POST)
+    login_url = reverse('authors:login')
+
+    if form.is_valid():
+        authenticated_user = authenticate(
+            username=form.cleaned_data.get('username', ''),
+            password=form.cleaned_data.get('password', ''),
+        )
+        
+        if authenticated_user is not None:
+            messages.success(request='Você esta logado')
+            login(authenticated_user)
+        else:
+            messages.error(request='Credenciais inválidas')
+    else:
+        messages.error(request='Usuário ou senha incorreto')
+        return redirect(login_url)
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('authors:login'))

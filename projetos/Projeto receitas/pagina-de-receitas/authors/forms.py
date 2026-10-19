@@ -1,32 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
-import re
-
-
-# Adiciona atributos ao campo sem apagar os existentes
-def add_attr(field, attr_name, attr_new_val):
-    existing = field.widget.attrs.get(attr_name, '')
-    field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
-
-
-# Define o texto de exemplo dentro do campo
-def add_placeholder(field, placeholder_val):
-    field.widget.attrs['placeholder'] = placeholder_val
-
-
-# Validação de senha forte com expressão regular
-def strong_password(password):
-    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
-
-    if not regex.match(password):
-        raise ValidationError(
-            'A senha deve conter pelo menos uma letra maiúscula, '
-            'uma letra minúscula e um número. Deve ter no mínimo 8 caracteres.',
-            code='invalid'
-        )
-
+from utils.django_forms import strong_password
 
 class RegisterForm(forms.ModelForm):
 
@@ -37,7 +12,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Orlando',
             'class': 'classe-widget',
-        })
+        }),
+        error_messages={
+            'required': 'Digite seu primeiro nome antes de enviar.',
+        }
     )
 
     # Campo de último nome
@@ -47,7 +25,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Almeida',
             'class': 'classe-widget',
-        })
+        }),
+        error_messages={
+            'required': 'Digite seu sobrenome antes de enviar.',
+        }
     )
 
     # Campo de nome de usuário
@@ -60,7 +41,12 @@ class RegisterForm(forms.ModelForm):
         }),
         error_messages={
             'required': 'Digite seu usuário antes de enviar.',
-        }
+            'unique': 'Este nome de usuário já está em uso.',
+            'min_length': 'O nome de usuário deve ter no minimo 4 caracteres.',
+            'max_length': 'O nome de usuário deve ter no máximo 150 caracteres.',
+        },
+        min_length=4,
+        max_length=150,
     )
 
     # Campo de e-mail
@@ -70,7 +56,11 @@ class RegisterForm(forms.ModelForm):
         help_text='Informe um e-mail válido para contato.',
         widget=forms.EmailInput(attrs={
             'placeholder': 'Digite seu e-mail',
-        })
+        }),
+        error_messages={
+            'required': 'Digite seu e-mail antes de enviar.',
+            'invalid': 'Digite um endereço de e-mail válido.',
+        }
     )
 
     # Campo de senha
@@ -81,7 +71,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite sua senha',
         }),
-        validators=[strong_password]
+        validators=[strong_password],
+        error_messages={
+            'required': 'Digite sua senha antes de enviar.',
+        }
     )
 
     # Campo para confirmar a senha
@@ -90,7 +83,10 @@ class RegisterForm(forms.ModelForm):
         label='Confirme sua senha',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite novamente sua senha',
-        })
+        }),
+        error_messages={
+            'required': 'Confirme sua senha antes de enviar.',
+        }
     )
 
     class Meta:
@@ -105,6 +101,15 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
 
+    # Tornar o email unico
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('User e-mail is already is use',code='invalid',)
+
+        return email
+    
+    
     # Validação conjunta para comparar as duas senhas
     def clean(self):
         cleaned_data = super().clean()
@@ -115,7 +120,7 @@ class RegisterForm(forms.ModelForm):
         if password and password2 and password != password2:
             self.add_error(
                 'password2',
-                'As senhas devem ser iguais.'
+                'As senhas informadas não coincidem.'
             )
 
         return cleaned_data

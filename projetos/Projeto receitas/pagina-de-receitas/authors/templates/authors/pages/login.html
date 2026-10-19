@@ -1,0 +1,22 @@
+{% extends "global/base.html" %}
+
+{% block title %}Login {% endblock %}
+
+{% block content %}
+
+    <div class="main-content center container">
+        <h2>Login</h2>
+        {% if request.user.is_authenticated %}
+            <p>Você esta logado com
+                {{ request.user.username }}
+                Por favor, 
+                <a href="{% url 'authors:logout' %}">clique aqui</a> Para sair
+            </p>
+        {% endif %}
+    </div>
+
+    {% include "global/partials/messages.html" %}
+
+    {% include "global/partials/form.html" %}
+
+{% endblock content %}
