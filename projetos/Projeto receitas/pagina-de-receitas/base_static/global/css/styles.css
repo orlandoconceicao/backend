@@ -688,6 +688,25 @@ h6 {
     transition: 0.3s;
     
 }
+
+.plaintext-button {
+    display: inline;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-primary);
+    font: inherit;
+    font-size: 1,6rem;
+}
+
+.plaintext-button:hover {
+    text-decoration: underline;
+}
+
+.inline-form {
+    display: inline;
+}
 /* ==================================================
    RESPONSIVIDADE — TELAS MÉDIAS
    Ajustes para telas de até 1100px

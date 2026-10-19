@@ -34,3 +34,26 @@ class AuthorLoginTest(TestCase):
         self.assertFalse(response.wsgi_request.user.is_authenticated)
         self.assertEqual(response.redirect_chain, [('/authors/login/', 302)])
         self.assertContains(response, 'Credenciais inválidas')
+
+    def test_logout_button_logs_out_and_redirects_to_login(self):
+        user = User.objects.get(username=self.username)
+        self.client.force_login(user)
+
+        page = self.client.get(reverse('authors:login'))
+        self.assertContains(
+            page,
+            '<form class="inline-form" action="/authors/logout/create/" method="post">',
+        )
+        self.assertContains(page, 'Você está logado com testuser.')
+        self.assertContains(
+            page,
+            '<button class="plaintext-button" type="submit">clique aqui</button>',
+        )
+
+        response = self.client.post(
+            reverse('authors:logout'),
+            follow=True,
+        )
+
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+        self.assertEqual(response.redirect_chain, [('/authors/login/', 302)])
