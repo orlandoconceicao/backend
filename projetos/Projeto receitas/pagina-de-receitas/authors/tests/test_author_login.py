@@ -52,6 +52,7 @@ class AuthorLoginTest(TestCase):
 
         response = self.client.post(
             reverse('authors:logout'),
+            {'username': self.username},
             follow=True,
         )
 

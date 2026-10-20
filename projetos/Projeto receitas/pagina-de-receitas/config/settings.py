@@ -1,7 +1,5 @@
 import os
-
 from pathlib import Path
-
 from django.contrib.messages import constants
 
 

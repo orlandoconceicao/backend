@@ -1,8 +1,7 @@
 from django.urls import reverse, resolve
-
 from recipes import views
-
 from .test_recipe_base import RecipeTestBase
+
 
 #from unittest import skip 
 # faz que o test seja ignorado #@skip('WIP') work in problems

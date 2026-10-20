@@ -2,7 +2,6 @@ import math
 from django.core.paginator import Paginator
 
 
-
 def make_pagination_range(page_range, qtd_pages, current_page):
     middle_page = math.ceil(qtd_pages / 2)
     start_range = current_page - middle_page

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from utils.django_forms import strong_password
 
+
 class RegisterForm(forms.ModelForm):
 
     # Campo de primeiro nome
