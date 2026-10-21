@@ -71,7 +71,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
                 author_data={'username': f'user-{recipe_number}'},
             )
 
-        with patch('recipes.views.PER_PAGES', 9):
+        with patch('recipes.views.PER_PAGE', 9):
             response = self.client.get(reverse('recipes:home'))
 
         self.assertContains(
@@ -88,7 +88,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
                 author_data={'username': f'user-{recipe_number}'},
             )
 
-        with patch('recipes.views.PER_PAGES', 9):
+        with patch('recipes.views.PER_PAGE', 9):
             first_page = self.client.get(reverse('recipes:home'))
             self.assertContains(
                 first_page,
@@ -114,7 +114,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
     def test_recipe_home_is_paginated(self):
         self.make_recipe_in_batch(qtd=8)
 
-        with patch('recipes.views.PER_PAGES', new=3):
+        with patch('recipes.views.PER_PAGE', new=3):
             response = self.client.get(reverse('recipes:home'))
             recipes = response.context['recipes']
             paginator = recipes.paginator
@@ -127,7 +127,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
     def test_invalid_page_query_uses_page_1(self):
         self.make_recipe_in_batch(qtd=8)
             
-        with patch('recipes.views.PER_PAGES', new=3):
+        with patch('recipes.views.PER_PAGE', new=3):
             response = self.client.get(reverse('recipes:home') + '?page=1A')
             self.assertEqual(response.context['recipes'].number, 1)
             

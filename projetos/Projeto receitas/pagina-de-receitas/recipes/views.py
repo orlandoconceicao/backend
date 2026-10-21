@@ -8,12 +8,12 @@ import os
 
 
 # variáveis em letra maiúsculas são constantes indica que não pode ser editada
-PER_PAGES = int(os.environ.get('PER_PAGES', 3))
+PER_PAGE = int(os.environ.get('PER_PAGE', 3))
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
 
-    page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    page_object, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(
         request,"pages/home.html", 
@@ -30,7 +30,7 @@ def category(request, category_id):
         is_published=True,
     )
     
-    page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    page_object, pagination_range = make_pagination(request, recipes, PER_PAGE)
     
     return render(
         request,"pages/category.html",
@@ -64,7 +64,7 @@ def search(request):
         is_published=True,
     ).order_by("-id")
     
-    page_object, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    page_object, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(
         request,"pages/search.html",
