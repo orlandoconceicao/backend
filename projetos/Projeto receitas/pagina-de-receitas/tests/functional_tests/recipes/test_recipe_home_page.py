@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from .base import RecipeBaseFunctionalTest
+from unittest.mock import patch
 import pytest
 
 
