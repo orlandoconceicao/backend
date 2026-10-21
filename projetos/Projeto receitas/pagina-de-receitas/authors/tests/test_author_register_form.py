@@ -60,7 +60,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     
     @parameterized.expand([
         ('first_name', 'Digite seu primeiro nome antes de enviar.'),
-        ('last_name', 'Digite seu sobrenome antes de enviar.'),
+        ('last_name', 'Digite seu último nome antes de enviar.'),
         ('username', 'Digite seu usuário antes de enviar.'),
         ('email', 'Digite seu e-mail antes de enviar.'),
         ('password', 'Digite sua senha antes de enviar.'),

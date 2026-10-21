@@ -28,7 +28,7 @@ class RegisterForm(forms.ModelForm):
             'class': 'classe-widget',
         }),
         error_messages={
-            'required': 'Digite seu sobrenome antes de enviar.',
+            'required': 'Digite seu último nome antes de enviar.',
         }
     )
 
