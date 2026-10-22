@@ -33,3 +33,21 @@ class AuthorsLoginTest(AuthorBaseTest):
     def test_login_create_raises_404_if_not_POST_method(self):
         self.browser.get(self.live_server_url + reverse('authors:login_create'))
         self.assertIn('Not Found', self.browser.find_element(By.TAG_NAME, 'body').text)
+        
+    def test_form_login_is_invalid(self):
+        # usuario abre a pagina de login
+        self.browser.get(self.live_server_url + reverse('authors:login'))
+        # usuario ve o formulario de login
+        form = self.browser.find_element(By.CLASS_NAME, 'main-form')
+        # tenta enviar valorez vazios
+        username = self.get_by_placeholder(form, 'Ex.: Orlando')
+        password = self.get_by_placeholder(form, 'Digite sua senha')
+        username.send_keys(' ')
+        password.send_keys(' ')
+        # envia o formulario
+        form.submit()
+        # ve uma mensagem de erro na tela
+        self.assertIn(
+            'Usuário ou senha incorreto',
+            self.browser.find_element(By.TAG_NAME, 'body').text)
+        
