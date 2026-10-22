@@ -13,7 +13,7 @@ class AuthorLoginTest(TestCase):
         )
         self.login_url = reverse('authors:login_create')
 
-    def test_valid_credentials_log_in_and_redirect_to_home(self):
+    def test_valid_credentials_log_in_and_redirect_to_dashboard(self):
         response = self.client.post(
             self.login_url,
             {'username': self.username, 'password': self.password},
@@ -21,7 +21,11 @@ class AuthorLoginTest(TestCase):
         )
 
         self.assertTrue(response.wsgi_request.user.is_authenticated)
-        self.assertEqual(response.redirect_chain, [('/', 302)])
+        self.assertEqual(
+            response.redirect_chain,
+            [('/authors/dashboard/', 302)],
+        )
+        self.assertContains(response, 'Dashboard (testuser)')
         self.assertContains(response, 'Você está logado.')
 
     def test_invalid_credentials_show_error_and_redirect_to_login(self):
@@ -44,7 +48,7 @@ class AuthorLoginTest(TestCase):
             page,
             '<form class="inline-form" action="/authors/logout/create/" method="post">',
         )
-        self.assertContains(page, 'Você está logado com testuser.')
+        self.assertContains(page, 'Você está logado como testuser.')
         self.assertContains(
             page,
             '<button class="plaintext-button" type="submit">clique aqui</button>',

@@ -61,7 +61,7 @@ def login_create(request):
 
         login(request, authenticated_user)
         messages.success(request, 'Você está logado.')
-        return redirect('recipes:home')
+        return redirect('authors:dashboard')
 
     messages.error(request, 'Usuário ou senha incorreto')
     return redirect(login_url)
@@ -79,3 +79,7 @@ def logout_view(request):
     messages.success(request, 'Logout concedido')
     logout(request)
     return redirect(reverse('authors:login'))
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard(request):
+    return render(request, 'authors/pages/dashboard.html')

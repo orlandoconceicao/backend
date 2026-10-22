@@ -1,0 +1,12 @@
+{% if request.user.is_authenticated %}
+    <div class="login-message">
+        Você está logado como {{ request.user.username }}.
+        Para sair,
+        <form class="inline-form" action="{% url 'authors:logout' %}" method="post">
+        {% csrf_token %}
+            <input type="hidden" name="username" value="{{ request.user.username}}">
+            <button class="plaintext-button" type="submit">clique aqui</button>
+        </form>
+        .
+    </div>
+{% endif %}

@@ -26,7 +26,7 @@ class AuthorsLoginTest(AuthorBaseTest):
 
         self.browser.get(self.live_server_url + reverse('authors:login'))
         body_text = self.browser.find_element(By.TAG_NAME, 'body').text
-        self.assertIn(f'Você está logado com {user.username}.', body_text)
+        self.assertIn(f'Você está logado como {user.username}.', body_text)
         # fim do test
         self.sleep(5)
 
