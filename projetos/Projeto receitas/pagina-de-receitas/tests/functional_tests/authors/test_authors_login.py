@@ -1,0 +1,31 @@
+from .base import AuthorBaseTest
+from django.contrib.auth.models import User
+from selenium.webdriver.common.by import By
+from django.urls import reverse
+import pytest
+
+@pytest.mark.functional_test # pytest -m 'functional_test' > apenas o selecionado
+class AuthorsLoginTest(AuthorBaseTest):
+    def test_user_valid_data_can_login_successfully(self):
+        string_password = '577643121Aa.'
+        user = User.objects.create_user(username='username192', password=string_password)
+        # usuario abre a página de login
+        self.browser.get(self.live_server_url + reverse('authors:login'))
+        # usuario ve o fomrulario de login
+        form = self.browser.find_element(By.CLASS_NAME, 'main-form')
+        username_field = self.get_by_placeholder(form, 'Ex.: Orlando')
+        password_field = self.get_by_placeholder(form, 'Digite sua senha')
+        # usuario digita seu usuario e senha
+        username_field.send_keys(user.username)
+        password_field.send_keys(string_password)
+        # usuario envia o formulario
+        form.submit()
+        # usuario ve a mensagem de login concluido e seu nome
+        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
+        self.assertIn('Você está logado.', body_text)
+
+        self.browser.get(self.live_server_url + reverse('authors:login'))
+        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
+        self.assertIn(f'Você está logado com {user.username}.', body_text)
+        # fim do test
+        self.sleep(5)

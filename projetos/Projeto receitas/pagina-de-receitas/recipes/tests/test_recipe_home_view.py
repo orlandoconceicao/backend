@@ -76,7 +76,8 @@ class RecipeHomeViewsTest(RecipeTestBase):
 
         self.assertContains(
             response,
-            '<a class="page-link page-item page-current" href="?page=1">1</a>',
+            '<a class="page-link page-item page-current" '
+            'aria-label="Página atual 1" aria-current="page" href="?page=1">1</a>',
             html=True,
         )
 
@@ -92,7 +93,8 @@ class RecipeHomeViewsTest(RecipeTestBase):
             first_page = self.client.get(reverse('recipes:home'))
             self.assertContains(
                 first_page,
-                '<a class="page-link page-item" href="?page=2">2</a>',
+                '<a class="page-link page-item" aria-label="Ir para a página 2" '
+                'href="?page=2">2</a>',
                 html=True,
             )
 
