@@ -22,6 +22,9 @@ class RecipeAdmin(admin.ModelAdmin):
     # precisa existir no campo list_display
     # tem que existir virgula no final por se tartar de tupla
     list_editable = 'is_published',
+    # ordenar por campos sinal de - decrescente
     ordering = '-id',
-    
+    # o slug pega o titulo sem letras maisculas, espaços, acentos e é um dicionário {}
+    # 'campo que vai ser preenchido' : ('campo que vai usar para preencher ele')
+    prepopulated_fields = {"slug": ('title',)}
 admin.site.register(Category, CategoryAdmin)
