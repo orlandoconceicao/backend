@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from recipes.models import Recipe
+from authors.forms.recipe_form import AuthorsRecipeForm
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
@@ -82,4 +83,27 @@ def logout_view(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard(request):
-    return render(request, 'authors/pages/dashboard.html')
+    recipes = Recipe.objects.filter(author=request.user)
+    return render(request, 'authors/pages/dashboard.html', context={
+        'recipes': recipes,
+    })
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_recipe_edit(request, id):
+    recipe = get_object_or_404(Recipe, author=request.user, pk=id)
+
+    form = AuthorsRecipeForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=recipe,
+    )
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Receita atualizada com sucesso.')
+        return redirect('authors:dashboard_recipe_edit', id=id)
+
+    return render(request, 'authors/pages/dashboard-recipe.html', context={
+        'form': form,
+        'form_action': reverse('authors:dashboard_recipe_edit', args=[id]),
+    })

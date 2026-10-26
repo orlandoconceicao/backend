@@ -639,7 +639,6 @@ h6 {
 
 /* ==================================================
    ESTILISAÇÃO DO FORM
-   Estilização do formulário de cadastro
    ================================================== */
 
 .form-content {
@@ -661,7 +660,9 @@ h6 {
   color: var(--color-error-dark);
 }
 
-.form-content input {
+.form-content input,
+.form-content textarea,
+.form-content select {
   width: 100%;
   padding: 1rem;
   border-radius: 0.4rem;
@@ -707,13 +708,56 @@ h6 {
 .inline-form {
     display: inline;
 }
+
+.span-2 {
+    grid-column: span 2;
+}
+
+
 /* ==================================================
-   Authors/
-   ESTILISAÇÃO DO Dashboard
+   ESTILIZAÇÃO DO Dashboard
    Estilização do dashboard do usuário
    ================================================== */
+
 .login-message {
     margin: 1rem 0;
+    display: inline-flex;
+
+}
+
+.login-message p {
+    font-weight: bold;
+    color: var(--color-black);
+    margin-left: 4px;
+}
+
+.login-message button {
+    margin-left: 4px;
+}
+.authors-dashboard-container {
+    max-width: 64rem;
+    text-align: left;
+    padding: var(--spacing-gutter-medium);
+    margin: 0 auto;
+}
+
+.authors-dashboard-container h3,
+.authors-dashboard-container p,
+.authors-dashboard-container ul,
+.authors-dashboard-container a {
+    color: var(--color-black);
+    text-decoration: none;
+    list-style-type: none;
+    margin: 1rem 0;
+}
+
+.authors-dashboard-container h3 {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.left {
+    text-align: left;
 }
 
 
@@ -788,7 +832,4 @@ h6 {
     .recipe-title-container {
         padding: 1.5rem;
     }
-
-    
-
 }
