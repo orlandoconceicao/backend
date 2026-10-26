@@ -1,5 +1,12 @@
+from io import BytesIO
+from tempfile import TemporaryDirectory
+
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
+from PIL import Image
+from recipes.models import Recipe
 from recipes.tests.test_recipe_base import RecipeMixing
 
 
@@ -99,3 +106,53 @@ class AuthorDashboardTest(TestCase, RecipeMixing):
         )
 
         self.assertEqual(response.status_code, 404)
+
+    def test_new_recipe_page_loads_with_create_url_as_form_action(self):
+        author = self.make_author(username='recipe-creator')
+        self.client.force_login(author)
+
+        response = self.client.get(reverse('authors:dashboard_recipe_new'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context['form'].instance.pk)
+        self.assertEqual(
+            response.context['form_action'],
+            reverse('authors:dashboard_recipe_new'),
+        )
+
+    def test_new_recipe_page_creates_recipe_for_logged_in_author(self):
+        author = self.make_author(username='recipe-creator')
+        self.client.force_login(author)
+        image_buffer = BytesIO()
+        Image.new('RGB', (1, 1)).save(image_buffer, format='PNG')
+        cover = SimpleUploadedFile(
+            'cover.png',
+            image_buffer.getvalue(),
+            content_type='image/png',
+        )
+
+        with TemporaryDirectory() as media_root:
+            with override_settings(MEDIA_ROOT=media_root):
+                response = self.client.post(
+                    reverse('authors:dashboard_recipe_new'),
+                    {
+                        'title': 'New recipe',
+                        'description': 'A description',
+                        'preparation_time': 10,
+                        'preparation_time_unit': 'Minutos',
+                        'servings': 2,
+                        'servings_unit': 'Porções',
+                        'preparation_steps': 'Prepare the recipe',
+                        'cover': cover,
+                    },
+                )
+
+        recipe = Recipe.objects.get(title='New recipe')
+        self.assertRedirects(
+            response,
+            reverse('authors:dashboard_recipe_edit', args=[recipe.pk]),
+        )
+        self.assertEqual(recipe.author, author)
+        self.assertEqual(recipe.slug, 'new-recipe')
+        self.assertFalse(recipe.is_published)
+        self.assertFalse(recipe.preparation_steps_is_html)
