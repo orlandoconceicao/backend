@@ -97,10 +97,14 @@ def dashboard_recipe_edit(request, id):
         request.FILES or None,
         instance=recipe,
     )
-
+    
     if form.is_valid():
-        form.save()
-        messages.success(request, 'Receita atualizada com sucesso.')
+        recipe = form.save(commit=False)
+        recipe.author = request.user
+        recipe.preparation_steps_html = False
+        recipe.is_published = False
+        recipe.save()
+        messages.success(request, 'Receita atualizada com sucesso!')
         return redirect('authors:dashboard_recipe_edit', id=id)
 
     return render(request, 'authors/pages/dashboard-recipe.html', context={
