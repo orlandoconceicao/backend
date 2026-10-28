@@ -47,9 +47,8 @@ class AuthorsLoginTest(AuthorBaseTest):
         # envia o formulario
         form.submit()
         # ve uma mensagem de erro na tela
-        self.assertIn(
-            'Usuário ou senha incorreto',
-            self.browser.find_element(By.TAG_NAME, 'body').text)
+        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
+        self.assertIn('Usuário ou senha incorreto', body_text)
         
     def test_form_login_is_invalid_credentials(self):
         # usuario abre a pagina de login
@@ -64,6 +63,5 @@ class AuthorsLoginTest(AuthorBaseTest):
         # envia o formulario
         form.submit()
         # ve uma mensagem de erro na tela
-        self.assertIn(
-            'Credenciais inválidas',
-            self.browser.find_element(By.TAG_NAME, 'body').text)
+        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
+        self.assertIn('Credenciais inválidas', body_text)
