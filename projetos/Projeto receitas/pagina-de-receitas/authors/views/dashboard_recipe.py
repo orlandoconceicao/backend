@@ -1,12 +1,28 @@
-from django.views import View
-from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
+from authors.forms.recipe_form import AuthorsRecipeForm
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from recipes.models import Recipe
-from authors.forms.recipe_form import AuthorsRecipeForm
+from django.views import View
+from django.contrib import messages
 
-
+@method_decorator(
+    login_required(login_url='authors:login',
+                   redirect_field_name='next'),
+                    name='dispatch'
+                    )
 class DashboardRecipe(View):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    
+    def setup(self, request, *args, **kwargs):
+        return super().setup(request, *args, **kwargs)
+    
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    
     def get_recipe(self, id=None):
         recipe = None
         if id is not None:
@@ -26,10 +42,12 @@ class DashboardRecipe(View):
                     'form_action': form_action,
                 })
         
+
     def get(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorsRecipeForm(instance=recipe)
         return self.render_recipe(form)
+    
     
     def post(self, request, id=None):
         recipe = self.get_recipe(id)
