@@ -13,7 +13,21 @@ PER_PAGE = int(os.environ.get('PER_PAGE', 3))
 
 class RecipeListViewBase(ListView):
     model = Recipe
-
+    context_object_name = 'recipes'
+    paginate_by = None
+    ordering = ['-id']
+    template_name = 'pages/home.html'
+    
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(is_published=True,)
+        return qs
+    
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        page_object, pagination_range = make_pagination(self.request, ctx.get('recipes'), PER_PAGE) 
+        ctx.update({ 'recipes': page_object, 'pagination_range': pagination_range })
+        return ctx
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
