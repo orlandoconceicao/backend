@@ -38,7 +38,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
     def test_recipe_home_title_includes_site_name(self):
         response = self.client.get(reverse('recipes:home'))
 
-        self.assertContains(response, '<title>Home | Recipes</title>')
+        self.assertContains(response, '<title>Home | Receitas</title>')
     
     def test_recipe_home_template_shows_no_recipes_if_no_recipes(self):
         response = self.client.get(reverse('recipes:home'))
