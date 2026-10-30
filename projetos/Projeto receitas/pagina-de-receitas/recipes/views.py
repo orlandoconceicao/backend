@@ -4,11 +4,16 @@ from django.db.models import Q
 from .models import Recipe
 from django.core.paginator import Paginator
 from utils.pagination import make_pagination
+from django.views.generic import ListView
 import os
 
 
 # variáveis em letra maiúsculas são constantes indica que não pode ser editada
 PER_PAGE = int(os.environ.get('PER_PAGE', 3))
+
+class RecipeListViewBase(ListView):
+    model = Recipe
+
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
