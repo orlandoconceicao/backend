@@ -138,7 +138,6 @@ static/
 !recipes/static/
 !recipes/static/pagina-de-receitas/
 !recipes/static/pagina-de-receitas/css/
-!recipes/static/pagina-de-receitas/css/styles.css
 /venv
 .vscode
 .venv
