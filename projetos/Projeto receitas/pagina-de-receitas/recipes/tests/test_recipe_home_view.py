@@ -30,6 +30,23 @@ class RecipeHomeViewsTest(RecipeTestBase):
     def test_recipe_home_view_returns_status_code_200_OK(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertEqual(response.status_code, 200)
+
+    def test_recipe_home_api_returns_published_recipes_as_json(self):
+        self.make_recipe(
+            title="Published recipe",
+            author_data={"username": "published-author"},
+        )
+        self.make_recipe(
+            title="Unpublished recipe",
+            slug="unpublished-recipe",
+            is_published=False,
+            author_data={"username": "unpublished-author"},
+        )
+
+        response = self.client.get("/recipes/api/v1/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()[0]["title"], "Published recipe")
         
     def test_recipe_home_view_loads_correct_template(self):
         response = self.client.get(reverse('recipes:home'))
