@@ -100,6 +100,7 @@ class RecipeDetail(DetailView):
     model = Recipe
     context_object_name = "recipe"
     template_name = "pages/recipe-view.html"
+    pk_url_kwarg = "id"
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
@@ -113,6 +114,8 @@ class RecipeDetail(DetailView):
 
 
 class RecipeDetailAPI(RecipeDetail):
+    pk_url_kwarg = "pk"
+
     def render_to_response(self, context, **response_kwargs):
         recipe = self.get_context_data()['recipe']
         recipe_dict = model_to_dict(recipe)

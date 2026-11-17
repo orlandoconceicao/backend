@@ -7,8 +7,6 @@ from selenium.webdriver.edge.service import Service
 
 
 ROOT_PATH = Path(__file__).parent.parent
-EDGEDRIVER_NAME = 'msedgedriver.exe'
-EDGEDRIVER_PATH = ROOT_PATH / 'bin' / EDGEDRIVER_NAME
 
 # --headless = não abre o navegador mas faz tudo
 def make_chrome_browser(*options):
@@ -21,7 +19,7 @@ def make_chrome_browser(*options):
     if os.environ.get('SELENIUM_HEADLESS') == '1':
         edge_options.add_argument('--headless')
 
-    edge_service = Service(executable_path=EDGEDRIVER_PATH)
+    edge_service = Service()
     browser = webdriver.Edge(service=edge_service, options=edge_options)
     return browser
 
