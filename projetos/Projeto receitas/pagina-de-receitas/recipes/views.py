@@ -4,6 +4,7 @@ from .models import Recipe
 from utils.pagination import make_pagination
 from django.views.generic import DetailView, ListView
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
 import os
 
 
@@ -37,14 +38,15 @@ class RecipeListViewBase(ListView):
 class RecipeListViewHome(RecipeListViewBase):
     template_name = "pages/home.html"
 
-class RecipeListViewHomeApi(RecipeListViewBase):
+
+class RecipeListViewHomeAPI(RecipeListViewBase):
     template_name = "pages/home.html"
     
     def render_to_response(self, context, **response_kwargs):
         recipes = self.get_context_data()['recipes']
-        recipes_list = recipes.object_list.values()
-
+        recipes_list = recipes.object_list.values()                
         return JsonResponse(list(recipes_list), safe=False)
+
 
 class RecipeListViewCategory(RecipeListViewBase):
     template_name = "pages/category.html"
@@ -94,22 +96,6 @@ class RecipeListViewSearch(RecipeListViewBase):
         return ctx
 
 
-def home(request):
-    return RecipeListViewHome.as_view()(request)
-
-
-def category(request, category_id):
-    return RecipeListViewCategory.as_view()(request, category_id=category_id)
-
-
-def search(request):
-    return RecipeListViewSearch.as_view()(request)
-
-
-def recipe(request, id):
-    return RecipeDetail.as_view()(request, pk=id)
-
-
 class RecipeDetail(DetailView):
     model = Recipe
     context_object_name = "recipe"
@@ -124,3 +110,22 @@ class RecipeDetail(DetailView):
         ctx = super().get_context_data(*args, **kwargs)
         ctx.update({"is_detail_page": True})
         return ctx
+
+
+class RecipeDetailAPI(RecipeDetail):
+    def render_to_response(self, context, **response_kwargs):
+        recipe = self.get_context_data()['recipe']
+        recipe_dict = model_to_dict(recipe)
+        recipe_dict['created_at'] = str(recipe.created_at)
+        recipe_dict['updated_at'] = str(recipe.updated_at)
+        
+        if recipe_dict.get('cover'):
+            recipe_dict['cover'] = self.request.build_absolute_uri(recipe_dict["cover"].url)
+        else:
+            recipe_dict['cover'] = ''
+        
+        del recipe_dict['is_published']
+        del recipe_dict['preparation_steps']
+        del recipe_dict['preparation_steps_is_html']
+        
+        return JsonResponse(recipe_dict, safe=False)
