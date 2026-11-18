@@ -1,15 +1,20 @@
+from django.views.generic import DetailView, ListView
+from django.forms.models import model_to_dict
+from utils.pagination import make_pagination
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.http import Http404
 from django.db.models import Q
 from .models import Recipe
-from utils.pagination import make_pagination
-from django.views.generic import DetailView, ListView
-from django.http import JsonResponse
-from django.forms.models import model_to_dict
 import os
 
 
 # variáveis em letra maiúsculas são constantes indica que não pode ser editada
 PER_PAGE = int(os.environ.get("PER_PAGE", 3))
+
+def theory(request, *args, **kwargs):
+    context
+    return render(request, "pages/theory.html")
 
 
 class RecipeListViewBase(ListView):
