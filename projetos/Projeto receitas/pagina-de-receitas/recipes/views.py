@@ -13,8 +13,11 @@ import os
 PER_PAGE = int(os.environ.get("PER_PAGE", 3))
 
 def theory(request, *args, **kwargs):
-    context
-    return render(request, "pages/theory.html")
+    recipes = Recipe.objects.all()
+    recipes = recipes.filter(is_published=True)
+    recipes = list(recipes)
+    context = {"recipes": recipes}
+    return render(request, "pages/theory.html", context=context)
 
 
 class RecipeListViewBase(ListView):
