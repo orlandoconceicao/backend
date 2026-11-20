@@ -16,13 +16,8 @@ PER_PAGE = int(os.environ.get("PER_PAGE", 3))
 
 def theory(request, *args, **kwargs):
     recipes = Recipe.objects.values('id', 'title')[:5]
-    recipes = Recipe.objects.all().annotate(
-        author_full_name=Concat(
-            F('author__first_name'), Value(' '),
-            F('author__last_name'), Value(' ('),
-            F('author__username'), Value(')'),
-        )
-    )
+    recipes = Recipe.objects.all().get_published()
+    
     number_of_recipes = recipes.aggregate(number=Count('id'))
 
     context = {
