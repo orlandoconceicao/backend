@@ -4,6 +4,7 @@ from utils.pagination import make_pagination
 from django.http import JsonResponse
 from django.http import Http404
 from django.db.models import Q
+from tags.models import Tag
 from .models import Recipe
 import os
 
@@ -23,6 +24,7 @@ class RecipeListViewBase(ListView):
             is_published=True,
         )
         qs = qs.select_related("author", "category")
+        qs = qs.prefetch_related('tags')
         return qs
 
     def get_context_data(self, *args, **kwargs):
@@ -94,6 +96,28 @@ class RecipeListViewSearch(RecipeListViewBase):
         )
         return ctx
 
+
+class RecipeListViewTag(RecipeListViewBase):
+    template_name = "pages/tag.html"
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(
+            tags__slug=self.kwargs.get('slug', '')
+        ).distinct()
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        page_title = Tag.objects.filter(slug=self.kwargs.get('slug', '')).first()
+        
+        if not page_title:
+            page_title = 'Nenhuma receita encontrada'
+        else:
+            page_title = f'{page_title.name} - Tag'
+
+        ctx.update({"page_title": page_title})
+        return ctx
 
 class RecipeDetail(DetailView):
     model = Recipe

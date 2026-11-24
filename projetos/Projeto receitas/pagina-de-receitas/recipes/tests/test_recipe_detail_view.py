@@ -28,6 +28,43 @@ class RecipeDetailViewTest(RecipeTestBase):
         self.assertIn(needed_title, content)
         self.assertIn('Recipe Preparation Steps', content)
         self.assertNotIn('ver mais...', content)
+
+    def test_recipe_detail_template_displays_tags(self):
+        recipe = self.make_recipe()
+        tag = recipe.tags.create(name='Sobremesa')
+
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.id})
+        )
+        content = response.content.decode('utf-8')
+
+        self.assertContains(response, 'Tags:')
+        self.assertContains(response, tag.name)
+        self.assertContains(
+            response,
+            reverse('recipes:tag', kwargs={'slug': tag.slug}),
+        )
+
+    def test_tag_page_loads_only_recipes_with_the_selected_tag(self):
+        tagged_recipe = self.make_recipe(
+            title='Receita com sobremesa',
+            slug='receita-com-sobremesa',
+        )
+        tag = tagged_recipe.tags.create(name='Sobremesa')
+        other_recipe = self.make_recipe(
+            title='Receita sem a tag',
+            slug='receita-sem-tag',
+            author_data={'username': 'other-author'},
+        )
+
+        response = self.client.get(
+            reverse('recipes:tag', kwargs={'slug': tag.slug})
+        )
+        content = response.content.decode('utf-8')
+
+        self.assertTemplateUsed(response, 'pages/tag.html')
+        self.assertContains(response, tagged_recipe.title)
+        self.assertNotContains(response, other_recipe.title)
         
     def test_recipe_detail_template_dont_load_recipe_not_published(self): 
         # testing recipe is_published false dont show
