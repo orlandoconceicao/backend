@@ -1,10 +1,10 @@
-from django.contrib.contenttypes.fields import GenericRelation
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from collections import defaultdict
 from django.urls import reverse
 from django.db import models
 from tags.models import Tag
-
 
 class Category(models.Model):
     name = models.CharField(max_length=65)
@@ -46,3 +46,15 @@ class Recipe(models.Model):
             self.slug = slugify(self.title)
 
         return super().save(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        error_messages = defaultdict(list)
+        recipe_from_db = Recipe.objects.filter(title__iexact=self.title).first()
+        
+        if recipe_from_db:
+            if recipe_from_db.id != self.pk:
+                error_messages["title"].append("Já existe uma receita com esse título.")
+                
+        if error_messages:
+            raise ValidationError(error_messages)
+            
