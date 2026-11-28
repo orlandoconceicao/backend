@@ -55,7 +55,7 @@ class AuthorDashboardTest(TestCase, RecipeMixing):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Dashboard Recipe')
+        self.assertContains(response, 'Receita do painel')
         self.assertEqual(response.context['form'].instance, recipe)
         self.assertEqual(
             response.context['form_action'],

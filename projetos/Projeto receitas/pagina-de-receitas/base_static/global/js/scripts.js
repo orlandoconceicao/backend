@@ -5,7 +5,7 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const confirmed = confirm('Tem certeza? clique OK para deletar');
+            const confirmed = confirm('Tem certeza de que deseja excluir esta receita?');
 
             if(confirmed) {
                 form.submit();

@@ -2,18 +2,20 @@ import math
 from django.core.paginator import Paginator
 
 
-def make_pagination_range(page_range, qtd_pages, current_page):
-    middle_page = math.ceil(qtd_pages / 2)
+def make_pagination_range(page_range, window_size, current_page):
+    middle_page = math.ceil(window_size / 2)
     start_range = current_page - middle_page
     stop_range = current_page + middle_page
     total_pages = len(page_range)
     
     start_range_offset = abs(start_range) if start_range < 0 else 0
 
+    # Mantém a quantidade de páginas visíveis quando o intervalo começa antes da primeira página.
     if start_range < 0:
         start_range = 0
         stop_range += start_range_offset
         
+    # Desloca o intervalo de volta quando ele ultrapassa a última página.
     if stop_range >= total_pages:
         start_range = start_range - abs(stop_range - total_pages)
 
@@ -21,7 +23,7 @@ def make_pagination_range(page_range, qtd_pages, current_page):
     return {
         'pagination': pagination,
         'page_range': page_range,
-        'qtd_pages': qtd_pages,
+        'window_size': window_size,
         'current_page': current_page,
         'total_pages': total_pages,
         'start_range': start_range,
@@ -31,7 +33,7 @@ def make_pagination_range(page_range, qtd_pages, current_page):
         'middle_page': middle_page,
     }
 
-def make_pagination(request, queryset, per_page, qty_pages=4):
+def make_pagination(request, queryset, per_page, window_size=4):
     try:
         current_page = int(request.GET.get("page", 1))
     except ValueError:
@@ -42,7 +44,7 @@ def make_pagination(request, queryset, per_page, qty_pages=4):
     
     pagination_range = make_pagination_range(
         paginator.page_range,
-        qty_pages,
+        window_size,
         current_page
     )
     

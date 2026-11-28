@@ -78,7 +78,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     def test_username_field_min_length_should_be_4(self):
         self.form_data['username'] = 'abc'
         url = reverse('authors:register_create')
-        msg = 'O nome de usuário deve ter no minimo 4 caracteres.'
+        msg = 'O nome de usuário deve ter no mínimo 4 caracteres.'
         response = self.client.post(url, data=self.form_data, follow=True)
         self.assertIn(msg, response.content.decode('utf-8'))
         self.assertIn(msg, response.context['form'].errors.get('username'))
@@ -129,7 +129,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         
     def test_email_field_must_be_unique(self):
         url = reverse('authors:register_create')
-        msg = 'User e-mail is already is use'
+        msg = 'Este e-mail já está em uso.'
         self.client.post(url, data=self.form_data, follow=True)
         response = self.client.post(url, data=self.form_data, follow=True)
         self.assertIn(msg,response.context['form'].errors.get('email'))

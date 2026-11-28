@@ -22,9 +22,9 @@ def register_create(request):
     if request.method != 'POST':
         raise Http404()
 
-    POST = request.POST
-    request.session['register_form_data'] = POST.dict()
-    form = RegisterForm(POST)
+    post_data = request.POST
+    request.session['register_form_data'] = post_data.dict()
+    form = RegisterForm(post_data)
 
     if form.is_valid():
         user = form.save()
@@ -63,20 +63,20 @@ def login_create(request):
         messages.success(request, 'Você está logado.')
         return redirect('authors:dashboard')
 
-    messages.error(request, 'Usuário ou senha incorreto')
+    messages.error(request, 'Usuário ou senha incorretos.')
     return redirect(login_url)
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
     if not request.POST:
-        messages.error(request, 'Logout invállido')
+        messages.error(request, 'Saída inválida.')
         return redirect(reverse('authors:login'))
     
     if request.POST.get('username') != request.user.username:
-        messages.error(request, 'Usuário de logout inválido')
+        messages.error(request, 'Usuário inválido para sair.')
         return redirect(reverse('authors:login'))
     
-    messages.success(request, 'Logout concedido')
+    messages.success(request, 'Você saiu da sua conta.')
     logout(request)
     return redirect(reverse('authors:login'))
 

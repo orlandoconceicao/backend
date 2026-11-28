@@ -4,18 +4,16 @@ from django.contrib.auth.models import User
 import re
 
 
-# Adiciona atributos ao campo sem apagar os existentes
 def add_attr(field, attr_name, attr_new_val):
     existing = field.widget.attrs.get(attr_name, '')
     field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
 
 
-# Define o texto de exemplo dentro do campo
 def add_placeholder(field, placeholder_val):
     field.widget.attrs['placeholder'] = placeholder_val
 
 
-# Validação de senha forte com expressão regular
+# Exige cada classe de caractere sem restringir os demais símbolos aceitos na senha.
 def strong_password(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
 
@@ -33,7 +31,7 @@ class RegisterForm(forms.ModelForm):
         label='Primeiro nome',
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Orlando',
-            'class': 'classe-widget',
+            'class': 'widget-class',
         }),
         error_messages={
             'required': 'Digite seu primeiro nome antes de enviar.',
@@ -45,7 +43,7 @@ class RegisterForm(forms.ModelForm):
         label='Último nome',
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Almeida',
-            'class': 'classe-widget',
+            'class': 'widget-class',
         }),
         error_messages={
             'required': 'Digite seu último nome antes de enviar.',
@@ -62,7 +60,7 @@ class RegisterForm(forms.ModelForm):
         error_messages={
             'required': 'Digite seu usuário antes de enviar.',
             'unique': 'Este nome de usuário já está em uso.',
-            'min_length': 'O nome de usuário deve ter no minimo 4 caracteres.',
+            'min_length': 'O nome de usuário deve ter no mínimo 4 caracteres.',
             'max_length': 'O nome de usuário deve ter no máximo 150 caracteres.',
         },
         min_length=4,
@@ -120,7 +118,7 @@ class RegisterForm(forms.ModelForm):
         email = self.cleaned_data.get('email', '')
         if User.objects.filter(email=email).exists():
             raise ValidationError(
-                'User e-mail is already is use',
+                'Este e-mail já está em uso.',
                 code='invalid',
             )
         return email

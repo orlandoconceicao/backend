@@ -68,9 +68,9 @@ class RecipeMixing:
             cover=cover,
         )
         
-    def make_recipe_in_batch(self, qtd=10):
+    def make_recipe_in_batch(self, count=10):
         recipes = []
-        for i in range(qtd):
+        for i in range(count):
             kwargs = {
                 'title': 'Recipe title {i}',
                 'slug': f'r{i}',

@@ -8,7 +8,7 @@ class AuthorLogoutTest(TestCase):
         User.objects.create_user(username='username', password='password')
         self.client.login(username='username', password='password')
         response = self.client.get(reverse('authors:logout'),follow=True)
-        self.assertIn('Logout invállido', response.content.decode('utf-8'))
+        self.assertIn('Saída inválida.', response.content.decode('utf-8'))
         
     def test_user_tries_to_logout_another_user(self):
         User.objects.create_user(username='username', password='password')
@@ -18,7 +18,7 @@ class AuthorLogoutTest(TestCase):
             data={'username': 'nouser'},
             follow=True
             )
-        self.assertIn('Usuário de logout inválido', response.content.decode('utf-8'))
+        self.assertIn('Usuário inválido para sair.', response.content.decode('utf-8'))
         
     def test_user_can_logout_seccessfully(self):
         User.objects.create_user(username='username', password='password')
@@ -28,4 +28,4 @@ class AuthorLogoutTest(TestCase):
             data={'username': 'username'},
             follow=True
             )
-        self.assertIn('Logout concedido', response.content.decode('utf-8'))
+        self.assertIn('Você saiu da sua conta.', response.content.decode('utf-8'))

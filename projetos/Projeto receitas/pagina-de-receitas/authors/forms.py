@@ -6,33 +6,30 @@ from utils.django_forms import strong_password
 
 class RegisterForm(forms.ModelForm):
 
-    # Campo de primeiro nome
     first_name = forms.CharField(
         required=True,
         label='Primeiro nome',
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Orlando',
-            'class': 'classe-widget',
+            'class': 'widget-class',
         }),
         error_messages={
             'required': 'Digite seu primeiro nome antes de enviar.',
         }
     )
 
-    # Campo de último nome
     last_name = forms.CharField(
         required=True,
         label='Último nome',
         widget=forms.TextInput(attrs={
             'placeholder': 'Ex.: Almeida',
-            'class': 'classe-widget',
+            'class': 'widget-class',
         }),
         error_messages={
             'required': 'Digite seu último nome antes de enviar.',
         }
     )
 
-    # Campo de nome de usuário
     username = forms.CharField(
         required=True,
         label='Usuário',
@@ -43,14 +40,13 @@ class RegisterForm(forms.ModelForm):
         error_messages={
             'required': 'Digite seu usuário antes de enviar.',
             'unique': 'Este nome de usuário já está em uso.',
-            'min_length': 'O nome de usuário deve ter no minimo 4 caracteres.',
+            'min_length': 'O nome de usuário deve ter no mínimo 4 caracteres.',
             'max_length': 'O nome de usuário deve ter no máximo 150 caracteres.',
         },
         min_length=4,
         max_length=150,
     )
 
-    # Campo de e-mail
     email = forms.EmailField(
         required=True,
         label='E-mail',
@@ -64,7 +60,6 @@ class RegisterForm(forms.ModelForm):
         }
     )
 
-    # Campo de senha
     password = forms.CharField(
         required=True,
         label='Senha',
@@ -78,7 +73,6 @@ class RegisterForm(forms.ModelForm):
         }
     )
 
-    # Campo para confirmar a senha
     password2 = forms.CharField(
         required=True,
         label='Confirme sua senha',
@@ -93,7 +87,6 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
 
-        # Define os campos do modelo utilizados no formulário
         fields = [
             'first_name',
             'last_name',
@@ -102,16 +95,15 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
 
-    # Tornar o email unico
+    # Evita contas com o mesmo endereço de e-mail.
     def clean_email(self):
         email = self.cleaned_data.get('email', '')
         if User.objects.filter(email=email).exists():
-            raise ValidationError('User e-mail is already is use',code='invalid',)
+            raise ValidationError('Este e-mail já está em uso.',code='invalid',)
 
         return email
     
     
-    # Validação conjunta para comparar as duas senhas
     def clean(self):
         cleaned_data = super().clean()
 
@@ -126,7 +118,7 @@ class RegisterForm(forms.ModelForm):
 
         return cleaned_data
 
-    # Salva o usuário com a senha protegida por hash
+    # Usa o hash do Django para não armazenar a senha em texto puro.
     def save(self, commit=True):
         user = super().save(commit=False)
 

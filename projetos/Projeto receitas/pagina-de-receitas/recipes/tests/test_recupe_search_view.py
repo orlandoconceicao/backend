@@ -3,10 +3,6 @@ from recipes import views
 from .test_recipe_base import RecipeTestBase
 
 
-#from unittest import skip 
-# faz que o test seja ignorado #@skip('WIP') work in problems
-# nas aspas e a mensagem que vai aparecer nao o padrao
-        
 class RecipeSearchViewsTest(RecipeTestBase):
 
     def test_recipe_search_uses_correct_view_function(self):
@@ -35,7 +31,7 @@ class RecipeSearchViewsTest(RecipeTestBase):
         url = reverse('recipes:search') + '?q=<Teste>'
         response = self.client.get(url)
         self.assertIn(
-            '<title>Search for &quot;&lt;Teste&gt;&quot; | Receitas</title>',
+            '<title>Busca por &quot;&lt;Teste&gt;&quot; | Receitas</title>',
             response.content.decode('utf-8')
         )
         
@@ -88,4 +84,3 @@ class RecipeSearchViewsTest(RecipeTestBase):
         
         self.assertIn(recipe1, response_both.context['recipes'])
         self.assertIn(recipe2, response_both.context['recipes'])
-        

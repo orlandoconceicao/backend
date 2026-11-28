@@ -8,7 +8,6 @@ from tags.models import Tag
 from .models import Recipe
 import os
 
-# variáveis em letra maiúsculas são constantes indica que não pode ser editada
 PER_PAGE = int(os.environ.get("PER_PAGE", 3))
 
 class RecipeListViewBase(ListView):
@@ -89,7 +88,7 @@ class RecipeListViewSearch(RecipeListViewBase):
         search_term = self.request.GET.get("q", "")
         ctx.update(
             {
-                "page_title": f'Search for "{search_term}"',
+                "page_title": f'Busca por "{search_term}"',
                 "search_term": search_term,
                 "additional_url_query": f"&q={search_term}",
             }

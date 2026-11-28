@@ -7,21 +7,8 @@ from .test_recipe_base import RecipeTestBase
 from unittest.mock import patch
 
 
-#from unittest import skip 
-# faz que o test seja ignorado #@skip('WIP') work in problems
-# nas aspas e a mensagem que vai aparecer nao o padrao
         
 class RecipeHomeViewsTest(RecipeTestBase):
-    
-# HOME
-    # serUp executa antes de todos os tests
-    # def setUp(self):
-        #return super().setUp()
-     
-    # tearDown executa depois de todos tests
-    
-    # def tearDown(self):
-          #return super().tearDown()
 
     def test_recipe_home_view_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
@@ -55,7 +42,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
     def test_recipe_home_title_includes_site_name(self):
         response = self.client.get(reverse('recipes:home'))
 
-        self.assertContains(response, '<title>Home | Receitas</title>')
+        self.assertContains(response, '<title>Início | Receitas</title>')
     
     def test_recipe_home_template_shows_no_recipes_if_no_recipes(self):
         response = self.client.get(reverse('recipes:home'))
@@ -67,7 +54,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
             'message-success',
         )
         
-# FIXTURES HOME
+# Dados da página inicial
 
     def test_recipe_home_template_loads_recipes(self):    
         # precisa criar receita      
@@ -122,7 +109,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
         self.assertEqual(second_page.context['recipes'][0].slug, 'recipe-0')
 
     def test_recipe_home_template_dont_load_recipes_not_published(self): 
-        # testing recipe is_published false dont show
+        # Receitas não publicadas não devem aparecer na página inicial.
         # precisa criar receita      
         self.make_recipe(is_published=False)
         
@@ -131,7 +118,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
         self.assertIn('Nenhuma receita encontrada', response.content.decode('utf-8'))
         
     def test_recipe_home_is_paginated(self):
-        self.make_recipe_in_batch(qtd=8)
+        self.make_recipe_in_batch(count=8)
 
         with patch('recipes.views.PER_PAGE', new=3):
             response = self.client.get(reverse('recipes:home'))
@@ -144,7 +131,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
         self.assertEqual(len(paginator.get_page(3)), 2)
 
     def test_invalid_page_query_uses_page_1(self):
-        self.make_recipe_in_batch(qtd=8)
+        self.make_recipe_in_batch(count=8)
             
         with patch('recipes.views.PER_PAGE', new=3):
             response = self.client.get(reverse('recipes:home') + '?page=1A')
@@ -155,4 +142,3 @@ class RecipeHomeViewsTest(RecipeTestBase):
 
             response = self.client.get(reverse('recipes:home') + '?page=3')
             self.assertEqual(response.context['recipes'].number, 3)
-    

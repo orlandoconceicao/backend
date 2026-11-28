@@ -91,7 +91,7 @@ class AuthorRegisterTest(AuthorBaseTest):
             email_field.send_keys('existing_email@example.com')
             email_field.send_keys(Keys.ENTER)
             form = self.get_form()
-            self.assertIn('User e-mail is already is use', form.text)
+            self.assertIn('Este e-mail já está em uso.', form.text)
         self.form_field_test_with_callback(callback)
 
     def test_passwords_do_not_match(self):

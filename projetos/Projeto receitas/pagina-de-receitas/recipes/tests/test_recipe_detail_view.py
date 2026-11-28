@@ -3,9 +3,6 @@ from recipes import views
 from .test_recipe_base import RecipeTestBase
 
 
-#from unittest import skip 
-# faz que o test seja ignorado #@skip('WIP') work in problems
-# nas aspas e a mensagem que vai aparecer nao o padrao
         
 class RecipeDetailViewTest(RecipeTestBase):
 
@@ -67,7 +64,7 @@ class RecipeDetailViewTest(RecipeTestBase):
         self.assertNotContains(response, other_recipe.title)
         
     def test_recipe_detail_template_dont_load_recipe_not_published(self): 
-        # testing recipe is_published false dont show
+        # Receitas não publicadas não devem aparecer nos detalhes.
         # precisa criar receita      
         recipe = self.make_recipe(is_published=False)
         

@@ -1,12 +1,12 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from utils.browser import make_chrome_browser
+from utils.browser import make_edge_browser
 from recipes.tests.test_recipe_base import RecipeMixing
 import time
 
 
 class RecipeBaseFunctionalTest(StaticLiveServerTestCase, RecipeMixing):
     def setUp(self):
-        self.browser = make_chrome_browser()
+        self.browser = make_edge_browser()
         return super().setUp()
 
     def tearDown(self):

@@ -8,8 +8,7 @@ from selenium.webdriver.edge.service import Service
 
 ROOT_PATH = Path(__file__).parent.parent
 
-# --headless = não abre o navegador mas faz tudo
-def make_chrome_browser(*options):
+def make_edge_browser(*options):
     edge_options = webdriver.EdgeOptions()
     if options is not None:
         for option in options:
@@ -24,6 +23,6 @@ def make_chrome_browser(*options):
     return browser
 
 if __name__ == '__main__':
-    browser = make_chrome_browser('--headless')
+    browser = make_edge_browser('--headless')
     browser.get('https://www.google.com.br/')
     sleep(5)

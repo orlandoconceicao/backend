@@ -25,7 +25,7 @@ class AuthorLoginTest(TestCase):
             response.redirect_chain,
             [('/authors/dashboard/', 302)],
         )
-        self.assertContains(response, 'Dashboard (testuser)')
+        self.assertContains(response, 'Painel (testuser)')
         self.assertContains(response, 'Você está logado.')
 
     def test_invalid_credentials_show_error_and_redirect_to_login(self):
@@ -46,12 +46,12 @@ class AuthorLoginTest(TestCase):
         page = self.client.get(reverse('authors:login'))
         self.assertContains(
             page,
-            '<form class="inline-form" action="/authors/logout/create/" method="post">',
+            '<form class="inline-form form-logout" action="/authors/logout/create/" method=\'POST\'>',
         )
         self.assertContains(page, 'Você está logado como testuser.')
         self.assertContains(
             page,
-            '<button class="plaintext-button" type="submit">clique aqui</button>',
+            '<a class="authors-logout-link" href="#">clique aqui</a>',
         )
 
         response = self.client.post(

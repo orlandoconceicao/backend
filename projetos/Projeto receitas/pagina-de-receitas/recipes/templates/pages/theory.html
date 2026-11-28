@@ -3,10 +3,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Theory</title>
+  <title>Teoria</title>
 </head>
 <body>
-  <h1>Theory</h1>
+  <h1>Teoria</h1>
 
   <p>Qtd. total de receitas: {{ number_of_recipes }}</p>
 
@@ -15,7 +15,7 @@
       <li>{{ recipe.id }} {{ recipe.title }} {{ recipe.is_published }}</li>
       <li>{{ recipe.id }} {{ recipe.title }} {{ recipe.author_full_name }}</li>
     {% empty %}
-      <p>No recipes found</p>
+      <p>Nenhuma receita encontrada</p>
     {% endfor %}
   </ul>
 </body>

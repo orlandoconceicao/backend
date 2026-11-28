@@ -1,13 +1,13 @@
 from io import BytesIO
 
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import SimpleTestCase
+from django.test import TestCase
 from PIL import Image
 
 from authors.forms.recipe_form import AuthorsRecipeForm
 
 
-class AuthorsRecipeFormTest(SimpleTestCase):
+class AuthorsRecipeFormTest(TestCase):
     def setUp(self):
         self.data = {
             'title': 'Valid recipe title',
